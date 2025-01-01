@@ -1,11 +1,540 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Personal Portfolio Website</title>
+    <!--=================== Google Fonts ====================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="assets/css/font.css">
+
+
+    <!--=================== Remixicons ====================-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=================== SwiperJS CSS ====================-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+
+
+    <!--=================== Main CSS ====================-->
+    <link rel="stylesheet" href="assets/css/main.css">
+
 </head>
+
 <body>
-    <span>Hello World!</span>
+
+    <!--=================== Header ====================-->
+    <header id="header" class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="nav__brand">
+                    <i class="ri-code-s-slash-line"></i>Developer
+                </a>
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#home" class="nav__link">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#about" class="nav__link">About</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#qualification" class="nav__link">Qualification</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#service" class="nav__link">Services</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#project" class="nav__link">Projects</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#contact" class="nav__link">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav__toggle">
+                    <i id="nav-toggle" class="ri-menu-3-line"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!--=================== main ====================-->
+    <main class="main">
+        <!--=================== Home ====================-->
+        <section id="home" class="home">
+            <div class="container">
+                <!-- <div class="background-image"></div> -->
+                <div class="d-grid hero__wrapper">
+                    <div class="hero__content">
+                        <h1 class="hero__title">Hi, I'm Jhon,<br>Web Developer and automation in Azure Services.</h1>
+                        <p class="hero__description">Experienced in Full Stack and Azure, backend development (ASP.NET, PHP), frontend technologies (HTML, CSS, JavaScript), 
+                            database management (SQL Server), and data analysis (Power BI, R). Proficient in Python programming.</p>
+                        <div class="hero__info">
+                            <div class="hero__info-wrapper">
+                                <p id="experienceYears" class="hero__info-number">--</p>
+                                <h2 class="hero__info-title">Years<br>Experience</h2>
+                            </div>
+                            <div class="hero__info-wrapper">
+                                <p class="hero__info-number">10+</p>
+                                <h2 class="hero__info-title">Projects<br>Completed</h2>
+                            </div>
+                            <div class="hero__info-wrapper">
+                                <div style="height: 100%;display: table;">
+                                    <span style="font-size: 20px;display: table-cell;vertical-align: middle;">Self-employed<br>Worker</span>
+                                </div>
+                            </div>
+                            <div class="contact__btn">
+                                <a href="assets/files/cv-main-page.pdf" class="btn btn--primary" target="_blank">Download CV</a>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="assets/img/main-picture.jpg" alt="Jhon" class="hero__img">
+                </div>
+            </div>
+        </section>
+
+        <!--=================== About ====================-->
+        <section id="about" class="section about">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">About Me</h2>
+                    <span class="section__subtitle">Who am I</span>
+                </div>
+                <div class="d-grid about__wrapper">
+                    <div class="about__content">
+                        <h3 class="about__title">I'm a Experienced Web Developer.</h3>
+                        <p class="about__description">Full Stack Developer and Azure Automation Specialist with expertise in DevOps, 
+                            backend development using ASP.NET and PHP, and frontend technologies including HTML, CSS, and JavaScript. 
+                            Skilled in database management with SQL Server, data analysis with Power BI and R, and programming in Python.
+                        </p>
+                        <h4 style="margin-bottom: 10px;">Programming languages</h4>
+                        <div class="icons__list">
+                            <div class="icons__block">
+                                <div><img src="assets/img/Python.png"></div>
+                                <span class="iconstxt__list">Python</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/PHP.png"></div>
+                                <span class="iconstxt__list">PHP</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/NET.png"></div>
+                                <span class="iconstxt__list">ASP.NET</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/SQL-Server.png"></div>
+                                <span class="iconstxt__list">SQL Server</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/MySQL.png"></div>
+                                <span class="iconstxt__list">MySQL</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/R.png"></div>
+                                <span class="iconstxt__list">R</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/HTML.png"></div>
+                                <span class="iconstxt__list">HTML</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/CSS.png"></div>
+                                <span class="iconstxt__list">CSS</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/JavaScript.png"></div>
+                                <span class="iconstxt__list">JavaScript</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/Bootstrap.png"></div>
+                                <span class="iconstxt__list">Bootstrap</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/React.png"></div>
+                                <span class="iconstxt__list">React</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/WinForms.png"></div>
+                                <span class="iconstxt__list">WinForms</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/PowerBI.png"></div>
+                                <span class="iconstxt__list">DAX Power BI</span>
+                            </div>
+                        </div>
+                        <h4 style="margin-top: 10px; margin-bottom: 10px;">Development environments</h4>
+                        <div class="icons__list">
+                            <div class="icons__block" style="height: 80px;">
+                                <div><img src="assets/img/Azure.png"></div>
+                                <span class="iconstxt__list">Azure</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/Visual-Studio.png"></div>
+                                <span class="iconstxt__list">Visual Studio</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/Visual-Studio-Code.png"></div>
+                                <span class="iconstxt__list">Visual Code</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/SSMS.png"></div>
+                                <span class="iconstxt__list">SQL Server Management</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/MySQL-Workbench.png"></div>
+                                <span class="iconstxt__list">MySQL Workbench</span>
+                            </div>
+                            <div class="icons__block" style="height: 80px;">
+                                <div><img src="assets/img/Github.png" style="filter: invert(1);"></div>
+                                <span class="iconstxt__list">Github</span>
+                            </div>
+                            <div class="icons__block">
+                                <div><img src="assets/img/Powershell-ISE.png"></div>
+                                <span class="iconstxt__list">Powershell ISE</span>
+                            </div>
+                            <div class="icons__block" style="height: 80px;">
+                                <div><img src="assets/img/PowerBI-Desktop.png"></div>
+                                <span class="iconstxt__list">Power BI</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skills">
+                        <h3 class="skills__title">Technologies I've been working with:</h3>
+                        <div class="skills__wrapper">
+                            <div class="skills__content">
+                                <h4 class="skills__subtitle">Backend</h4>
+                                <ul class="skills__list">
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        Azure</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        Python</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        PHP</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        ASP.NET</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        SQL Server</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        MySQL</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        R</li>
+                                </ul>
+                            </div>
+                            <div class="skills__content">
+                                <h4 class="skills__subtitle">Frontend</h4>
+                                <ul class="skills__list">
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        HTML</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        CSS/Sass</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        JavaScript</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        Bootstrap</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        React</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        WinForms</li>
+                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
+                                        PowerBI</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--=================== Qualification ====================-->
+        <section id="qualification" class="section qualification">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Qualification</h2>
+                    <span class="section__subtitle">Experience & Education</span>
+                </div>
+                <!--============== Professional Experience ============-->
+                <div class="qualification__wrapper">
+                    <h3 class="qualification__name">
+                        <i class="ri-briefcase-fill"></i>
+                        Professional Experience
+                    </h3>
+                    <div class="d-grid qualification__content">
+                        <!-- Experience 1-->
+                        <div class="qualification__item">
+                            <h3 class="qualification__title">Support in the field of Analytics, Big Data Solution Architect</h3>
+                            <p class="qualification__description">Designed and developed technological solutions for mining, 
+                                data analysis, and automation, in Azure and Apps.</p>
+                            <span class="qualification__date">May 2020 - Present</span>
+                        </div>
+                        <!-- Experience 2-->
+                        <div class="qualification__item">
+                            <h3 class="qualification__title">Web Application Development - Claro Call Center</h3>
+                            <p class="qualification__description">Designed and developed a web application that emulates the functionalities of Claro, 
+                                intended for a call center, using technologies such as HTML, CSS, JavaScript, PHP, and MySQL.</p>
+                            <span class="qualification__date">Feb 2020</span>
+                        </div>
+                        <!-- Experience 3-->
+                        <div class="qualification__item">
+                            <h3 class="qualification__title">Development of Web Application for Incidents - UTI UNJBG</h3>
+                            <p class="qualification__description">Implemented a web solution to record and manage incidents in the 
+                                Information Technology Unit (UTI) of UNJBG, using a technology stack that included HTML, CSS, JavaScript, PHP, and MySQL.</p>
+                            <span class="qualification__date">Nov - Dic 2019</span>
+                        </div>
+                        <!-- Experience 4-->
+                        <div class="qualification__item">
+                            <h3 class="qualification__title">WiFi Interface Design - UNJBG</h3>
+                            <p class="qualification__description">Created an interface for wireless access to WiFi networks at the 
+                                National University Jorge Basadre Grohmann (UNJBG), optimizing the user experience in connecting to the internet.</p>
+                            <span class="qualification__date">Oct 2019</span>
+                        </div>
+                        <!-- Experience 5-->
+                        <div class="qualification__item">
+                            <h3 class="qualification__title">Web Application - Attendee Management</h3>
+                            <p class="qualification__description">I designed and developed a web application using PHP, HTML, JavaScript, and CSS. 
+                                This tool enabled the efficient management of attendee data for the international congress CIISXX.</p>
+                            <span class="qualification__date">Apr - Nov 2019</span>
+                        </div>
+                    </div>
+                </div>
+                <!--============== Education ============-->
+                <div class="qualification__wrapper">
+                    <h3 class="qualification__name">
+                        <i class="ri-booklet-fill"></i>
+                        Education
+                    </h3>
+                    <div class="d-grid qualification__content">
+                        <!-- Education 1-->
+                        <div class="qualification__item">
+                            <h3 class="qualification__title">Foundational C# with Microsoft</h3>
+                            <p class="qualification__description">Certified in foundational C# programming, covering core concepts, 
+                                object-oriented principles, and .NET Framework development.</p>
+                            <span class="qualification__date">Expedición: sept. 2024</span>
+                        </div>
+                        <!-- Education 2-->
+                        <div class="qualification__item">
+                            <h3 class="qualification__title">Universidad Nacional Jorge Basadre Grohmann</h3>
+                            <p class="qualification__description">Higher Level</p>
+                            <span class="qualification__date">Apr 2015 - Dic 2019</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--=================== services ====================-->
+        <section id="service" class="section service">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Services</h2>
+                    <span class="section__subtitle">What I do</span>
+                </div>
+                <div class="d-grid service__wrapper">
+                    <!--========= service card 1 =========-->
+                    <div class="service__card">
+                        <div class="service__icon">
+                            <i class="ri-layout-4-fill"></i>
+                        </div>
+                        <h3 class="service__title">Frontend<br>Development</h3>
+                        <!-- <a href="#" class="service__link">Know More</a> -->
+                    </div>
+                    <!--========= service card 2 =========-->
+                    <div class="service__card">
+                        <div class="service__icon">
+                            <i class="ri-code-s-slash-line"></i>
+                        </div>
+                        <h3 class="service__title">Backend<br> Development</h3>
+                    </div>
+                    <!--========= service card 3 =========-->
+                    <div class="service__card">
+                        <div class="service__icon">
+                            <img src="assets/img/Azure.png" style="width: 35px;filter: brightness(0) invert(1);">
+                        </div>
+                        <h3 class="service__title">Azure<br> Service</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--=================== Projects ====================-->
+        <section id="project" class="section project">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Projects</h2>
+                    <span class="section__subtitle">My recent work</span>
+                </div>
+                <div class="d-grid project__wrapper">
+                    <!--============== project 1 =============-->
+                    <div class="project__content">
+                        <img src="assets/img/project3.jpg" alt="Aplicación Web - Diseño y Gestión de Asistentes" class="project__img">
+                        <h3 class="project__title">Aplicación Web - Diseño y Gestión de Asistentes</h3>
+                        <p class="project__description">Plataforma web para un evento académico (CIIS) que incluye un diseño dinámico, 
+                            menús interactivos y gestión de asistentes.</p>
+                        <a href="https://web-ciisxx.vercel.app/" class="project__link" target="_blank">View Project
+                            <i class="ri-arrow-right-line"></i></a>
+                    </div>
+                    <!--============== project 2 =============-->
+                    <div class="project__content">
+                        <img src="assets/img/project1.jpg" alt="Desarrollo de Aplicación Web de Incidencias - USI UNJBG" class="project__img">
+                        <h3 class="project__title">Desarrollo de Aplicación Web de Incidencias - USI UNJBG</h3>
+                        <p class="project__description">Sistema web para gestionar el registro, seguimiento y resolución de incidencias en la USI de la UNJBG, 
+                            desarrollado con tecnologías modernas para garantizar eficiencia y usabilidad.</p>
+                        <a href="https://web-incidencias.vercel.app/" class="project__link" target="_blank">View Project<i class="ri-arrow-right-line"></i></a>
+                    </div>
+                    <!--============== project 3 =============-->
+                    <div class="project__content">
+                        <img src="assets/img/project2.jpg" alt="Diseño de Interfaz WiFi - UNJBG" class="project__img">
+                        <h3 class="project__title">Diseño de Interfaz WiFi - UNJBG</h3>
+                        <p class="project__description">Web enfocada en la autenticación de inicio de sesión para usuarios de la red 
+                            WiFi de la Universidad Nacional Jorge Basadre Grohmann. Cuenta con un diseño intuitivo y 
+                            adaptable a dispositivos móviles.</p>
+                        <a href="https://wifi-unjbg.vercel.app/" class="project__link" target="_blank">View Project
+                            <i class="ri-arrow-right-line"></i></a>
+                    </div>
+                    <!--============== project 4 =============-->
+                    <div class="project__content">
+                        <img src="assets/img/project4.jpg" alt="Desarrollo de Aplicación Web - Call Center Claro" class="project__img">
+                        <h3 class="project__title">Desarrollo de Aplicación Web - Call Center Claro</h3>
+                        <p class="project__description">Aplicación web para gestionar llamadas y servicios, y generar reportes en tiempo real, 
+                            optimizando la atención al cliente con tecnologías modernas y un diseño intuitivo.</p>
+                        <a href="https://web-clon-claro.vercel.app/" class="project__link" target="_blank">View Project
+                            <i class="ri-arrow-right-line"></i></a>
+                    </div>
+                    <!--============== project 5 =============-->
+                    <div class="project__content">
+                        <img src="assets/img/project5.jpg" alt="Desarrollo de ChatBot Web Inteligente con flujos y usuarios" class="project__img">
+                        <h3 class="project__title">Desarrollo de ChatBot Web Inteligente con flujos y usuarios</h3>
+                        <p class="project__description">Chatbot web con flujos personalizados y gestión de usuarios, 
+                            diseñado para interacción eficiente y soporte optimizado.</p>
+                        <a href="https://usaeu2gig-dev-miningbotweb.azurewebsites.net/" class="project__link" target="_blank">View Project
+                            <i class="ri-arrow-right-line"></i></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!--=================== Testimonials ====================-->
+        <section id="testimonial" class="section testimonial" style="display: none;">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Testimonials</h2>
+                    <span class="section__subtitle">What my clients say</span>
+                </div>
+                <div class="testimonial__wrapper swiper">
+
+                    <div class="swiper-wrapper">
+                        <!--========= testimonial 1 ============ -->
+                        <div class="testimonial__card swiper-slide">
+                            <img src="assets/img/testimonial1.jpg" alt="Natasha Smith" class="testimonial__img">
+                            <div class="testimonial__content">
+                                <p class="testimonial__description">Lorem ipsum dolor sit amet consectetur. Dignissim
+                                    tincidunt egestas vitae porttitor nulla gravida commodo.</p>
+                                <h3 class="testimonial__name">Natasha Smith</h3>
+                                <span class="testimonial__occupation">UI/UX Designer at Dribbble</span>
+                            </div>
+                        </div>
+                        <!--========= testimonial 2 ============ -->
+                        <div class="testimonial__card swiper-slide">
+                            <img src="assets/img/testimonial2.jpg" alt="John Clarke" class="testimonial__img">
+                            <div class="testimonial__content">
+                                <p class="testimonial__description">Lorem ipsum dolor sit amet consectetur. Dignissim
+                                    tincidunt egestas vitae porttitor nulla gravida commodo.</p>
+                                <h3 class="testimonial__name">John Clarke</h3>
+                                <span class="testimonial__occupation">Web Developer at Facebook</span>
+                            </div>
+                        </div>
+                        <!--========= testimonial 3 ============ -->
+                        <div class="testimonial__card swiper-slide">
+                            <img src="assets/img/testimonial3.jpg" alt="Emily Walker" class="testimonial__img">
+                            <div class="testimonial__content">
+                                <p class="testimonial__description">Lorem ipsum dolor sit amet consectetur. Dignissim
+                                    tincidunt egestas vitae porttitor nulla gravida commodo.</p>
+                                <h3 class="testimonial__name">Emily Walker</h3>
+                                <span class="testimonial__occupation">Backend Developer at Google
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+
+        <!--=================== Contact ====================-->
+        <section id="contact" class="section contact">
+            <div class="container">
+                <div class="d-grid contact__wrapper">
+                    <div class="contact__content">
+                        <h2 class="contact__title">Interested in working together? Let's talk</h2>
+                        <p class="contact__description">
+                            
+                        </p>
+                    </div>
+                    <div class="contact__btn">
+                        <a href="mailto:jhonalvarado567@gmail.com" class="btn btn--secondary">Get in touch</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!--=================== footer ====================-->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="d-grid footer__wrapper">
+                <div class="footer__content">
+                    <h4 class="footer__title">Follow Me</h4>
+                    <ul class="footer__social-list">
+                        <li class="footer__social-item">
+                            <a href="https://www.facebook.com/john.alvarado.achata" class="footer__social-link">
+                                <i class="ri-facebook-fill"></i>
+                            </a>
+                        </li>
+                        <li class="footer__social-item">
+                            <a href="https://github.com/Jhoanii96" class="footer__social-link">
+                                <i class="ri-github-fill"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__content">
+                    <h4 class="footer__title">Email Me</h4>
+                    <a href="mailto:jhonalvarado567@gmail.com" class="footer__contact">jhonalvarado567@gmail.com</a>
+                </div>
+            </div>
+            <p class="footer__copyright">&copy; <span id="year"></span> @ All Rights Reserved</p>
+            <script>
+                // Get the current year and set it dynamically
+                document.getElementById("year").textContent = new Date().getFullYear();
+            </script>
+        </div>
+    </footer>
+
+    <!--=================== SwiperJS  ====================-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+    <!--=================== ScrollReveal ==================-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!--=================== Main JS ====================-->
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Define the starting year
+        const startingYear = 2020;
+    
+        // Get the current year
+        const currentYear = new Date().getFullYear();
+    
+        // Calculate years of experience
+        const yearsOfExperience = currentYear - startingYear;
+    
+        // Update the HTML content
+        document.getElementById('experienceYears').textContent = 
+            yearsOfExperience.toString().padStart(2, '0');
+    </script>
 </body>
+
 </html>
