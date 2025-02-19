@@ -1,8 +1,0 @@
-#install if not exists vercel
-npm i -g vercel
-
-#create project
-vercel
-
-#deploy
-vercel --prod
