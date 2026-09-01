@@ -1,540 +1,883 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="dark scroll-smooth" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio Website</title>
-    <!--=================== Google Fonts ====================-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="assets/css/font.css">
-
-
-    <!--=================== Remixicons ====================-->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-
-    <!--=================== SwiperJS CSS ====================-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
-
-
-    <!--=================== Main CSS ====================-->
-    <link rel="stylesheet" href="assets/css/main.css">
-
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Jhon.dev - Full Stack &amp; AI Solutions</title>
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#1e0060",
+                        "on-secondary-container": "#00424e",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "on-background": "#e8ddff",
+                        "error": "#ffb4ab",
+                        "outline-variant": "#484456",
+                        "on-primary-container": "#eee6ff",
+                        "on-surface": "#e8ddff",
+                        "neon-purple": "#7042F8",
+                        "on-tertiary-fixed": "#001c39",
+                        "surface-dim": "#150f28",
+                        "on-tertiary-fixed-variant": "#004883",
+                        "on-tertiary-container": "#e0ebff",
+                        "primary": "#ffffff",
+                        "secondary": "#4cd7f6",
+                        "on-tertiary": "#00315c",
+                        "surface-bright": "#3c3550",
+                        "on-secondary-fixed": "#001f26",
+                        "on-error": "#690005",
+                        "primary-container": "#7042f8",
+                        "tertiary-fixed-dim": "#a3c9ff",
+                        "error-container": "#93000a",
+                        "on-secondary": "#003640",
+                        "background": "#150f28",
+                        "surface": "#150f28",
+                        "electric-cyan": "#06B6D4",
+                        "secondary-fixed": "#acedff",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "tertiary-fixed": "#d3e3ff",
+                        "azure-blue": "#0078D4",
+                        "primary-fixed-dim": "#ccbeff",
+                        "primary-fixed": "#e7deff",
+                        "tertiary-container": "#006bbe",
+                        "inverse-primary": "#6533ed",
+                        "surface-container-highest": "#37314b",
+                        "surface-tint": "#ccbeff",
+                        "on-primary-fixed-variant": "#4c00d3",
+                        "surface-container-low": "#1e1831",
+                        "surface-container-high": "#2c2640",
+                        "tertiary": "#a3c9ff",
+                        "inverse-on-surface": "#332c47",
+                        "on-surface-variant": "#cac3d9",
+                        "surface-container": "#221c35",
+                        "pure-white": "#FFFFFF",
+                        "surface-container-lowest": "#100a23",
+                        "glass-border": "rgba(255, 255, 255, 0.08)",
+                        "outline": "#938ea2",
+                        "surface-variant": "#37314b",
+                        "inverse-surface": "#e8ddff",
+                        "secondary-container": "#03b5d3",
+                        "on-primary": "#350097"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "stack-lg": "80px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "stack-sm": "12px",
+                        "unit": "8px",
+                        "stack-md": "32px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-xl": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "headline-xl-mobile": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-xl-mobile": ["40px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/css/code.css">
 </head>
 
-<body>
-
-    <!--=================== Header ====================-->
-    <header id="header" class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="index.html" class="nav__brand">
-                    <i class="ri-code-s-slash-line"></i>Developer
-                </a>
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item">
-                            <a href="#home" class="nav__link">Home</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#about" class="nav__link">About</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#qualification" class="nav__link">Qualification</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#service" class="nav__link">Services</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#project" class="nav__link">Projects</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#contact" class="nav__link">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="nav__toggle">
-                    <i id="nav-toggle" class="ri-menu-3-line"></i>
-                </div>
-            </nav>
+<body
+    class="bg-background text-on-background relative min-h-screen selection:bg-electric-cyan selection:text-surface-container-lowest antialiased">
+    <!-- Global Background Shader -->
+    <div class="fixed inset-0 z-[-1] pointer-events-none">
+        <!-- STITCH_SHADER_START:ANIMATION_2 class="absolute inset-0 w-full h-full" -->
+        <div class="absolute inset-0 w-full h-full" style="display:block;">
+            <canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
         </div>
-    </header>
-    <!--=================== main ====================-->
-    <main class="main">
-        <!--=================== Home ====================-->
-        <section id="home" class="home">
-            <div class="container">
-                <!-- <div class="background-image"></div> -->
-                <div class="d-grid hero__wrapper">
-                    <div class="hero__content">
-                        <h1 class="hero__title">Hi, I'm Jhon,<br>Web Developer and automation in Azure Services.</h1>
-                        <p class="hero__description">Experienced in Full Stack and Azure, backend development (ASP.NET, PHP), frontend technologies (HTML, CSS, JavaScript), 
-                            database management (SQL Server), and data analysis (Power BI, R). Proficient in Python programming.</p>
-                        <div class="hero__info">
-                            <div class="hero__info-wrapper">
-                                <p id="experienceYears" class="hero__info-number">--</p>
-                                <h2 class="hero__info-title">Years<br>Experience</h2>
-                            </div>
-                            <div class="hero__info-wrapper">
-                                <p class="hero__info-number">10+</p>
-                                <h2 class="hero__info-title">Projects<br>Completed</h2>
-                            </div>
-                            <div class="hero__info-wrapper">
-                                <div style="height: 100%;display: table;">
-                                    <span style="font-size: 20px;display: table-cell;vertical-align: middle;">Self-employed<br>Worker</span>
-                                </div>
-                            </div>
-                            <div class="contact__btn">
-                                <a href="assets/files/cv-azure.pdf" class="btn btn--primary" target="_blank" style="margin-right: 10px;">CV Azure</a>
-                                <a href="assets/files/cv-full-stack.pdf" class="btn btn--primary" target="_blank">CV Full Stack</a>
-                            </div>
+        <!-- STITCH_SHADER_END:ANIMATION_2 -->
+    </div>
+    <!-- TopNavBar (Shared Component) -->
+    <nav
+        class="fixed top-0 w-full z-50 py-4 backdrop-blur-xl border-b border-glass-border shadow-none text-primary transition-all duration-300">
+        <div
+            class="relative flex justify-between items-center max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+            <!-- Brand -->
+            <a class="font-headline-md text-headline-md text-primary font-bold hover:scale-105 transition-transform duration-200"
+                href="#">
+                &lt;/&gt; Developer
+            </a>
+            <!-- Navigation Links -->
+            <ul class="hidden md:flex items-center gap-gutter">
+                <li>
+                    <a class="font-label-md text-label-md text-electric-cyan font-bold border-b-2 border-electric-cyan pb-1 hover:scale-105 transition-transform duration-200"
+                        href="#home">Home</a>
+                </li>
+                <li>
+                    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                        href="#about">About</a>
+                </li>
+                <li>
+                    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                        href="#qualification">Qualification</a>
+                </li>
+                <li>
+                    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                        href="#services">Services</a>
+                </li>
+                <li>
+                    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                        href="#projects">Projects</a>
+                </li>
+                <li>
+                    <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300 hover:scale-105 transition-transform duration-200"
+                        href="#contact">Contact</a>
+                </li>
+            </ul>
+            <!-- Trailing Action -->
+            <div class="hidden md:block">
+                <span
+                    class="inline-block px-4 py-2 rounded-full font-label-caps text-label-caps border border-primary text-primary pulsing-badge-animation transition-all duration-300">
+                    Available for work
+                </span>
+            </div>
+            <!-- Mobile Menu Icon -->
+            <button id="mobile-menu-button" class="md:hidden text-primary" aria-label="Toggle menu" aria-expanded="false">
+                <span class="material-symbols-outlined text-3xl">menu</span>
+            </button>
+            <div id="mobile-menu-panel" class="hidden absolute left-0 right-0 top-full mt-3 mx-margin-mobile md:hidden">
+                <ul class="glass-card flex flex-col gap-2 rounded-xl p-4" style="background: rgb(21 15 40);">
+                    <li><a class="block py-2 px-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors"
+                            href="#home">Home</a></li>
+                    <li><a class="block py-2 px-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors"
+                            href="#about">About</a></li>
+                    <li><a class="block py-2 px-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors"
+                            href="#qualification">Qualification</a></li>
+                    <li><a class="block py-2 px-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors"
+                            href="#services">Services</a></li>
+                    <li><a class="block py-2 px-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors"
+                            href="#projects">Projects</a></li>
+                    <li><a class="block py-2 px-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-white/5 transition-colors"
+                            href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content Canvas -->
+    <main
+        class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col gap-stack-lg pt-[120px] pb-stack-lg">
+        <!-- SECTION: Home -->
+        <section class="min-h-[80vh] flex flex-col justify-center scroll-mt-[120px]" id="home">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+                <!-- Left Content -->
+                <div class="lg:col-span-6 flex flex-col items-start fade-in">
+                    <!-- Glowing Badge -->
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-neon-purple/30 bg-neon-purple/10 mb-6">
+                        <span class="material-symbols-outlined text-electric-cyan"
+                            style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                        <span class="font-label-md text-label-md text-primary">Cloud, Full Stack &amp; AI
+                            Solutions</span>
+                    </div>
+                    <!-- Typography -->
+                    <h4
+                        class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-pure-white mb-4">
+                        Hi, I'm Jhon — <br />
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-neon-purple">Full
+                            Stack
+                            Developer</span> &amp; <br />
+                        Azure Automation
+                    </h4>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-8">
+                        Architecting scalable digital ecosystems bridging robust backend infrastructure, intelligent AI
+                        workflows,
+                        and seamless frontend experiences inside the Azure cloud environment.
+                    </p>
+                    <!-- Actions -->
+                    <div class="flex flex-wrap gap-4 mb-12 w-full">
+                        <button
+                            class="px-6 py-3 rounded-full font-label-md text-label-md font-bold text-pure-white bg-gradient-to-r from-neon-purple to-secondary-container hover:brightness-110 shadow-[0_0_20px_rgba(112,66,248,0.3)] hover:shadow-[0_0_30px_rgba(112,66,248,0.5)] transition-all duration-300 flex items-center gap-2">
+                            <span class="material-symbols-outlined">description</span>
+                            View CV
+                        </button>
+                        <button
+                            class="px-6 py-3 rounded-full font-label-md text-label-md font-bold text-pure-white glass-card hover:bg-surface-container-high transition-colors duration-300 flex items-center gap-2">
+                            <span class="material-symbols-outlined">download</span>
+                            Download PDF
+                        </button>
+                        <button
+                            class="px-6 py-3 rounded-full font-label-md text-label-md font-bold text-electric-cyan border border-transparent hover:border-glass-border transition-colors duration-300 flex items-center gap-2">
+                            Contact Me
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                    </div>
+                    <!-- Bento Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+                        <div class="glass-card p-4 rounded-xl flex flex-col">
+                            <span class="font-headline-md text-headline-md text-electric-cyan">5+</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant mt-1">Years
+                                Experience</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl flex flex-col">
+                            <span class="font-headline-md text-headline-md text-secondary">10+</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant mt-1">Projects
+                                Completed</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl flex flex-col">
+                            <span class="font-headline-md text-headline-md text-primary">Azure</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant mt-1">Cloud &amp; AI
+                                Architecture</span>
                         </div>
                     </div>
-                    <img src="assets/img/main-picture.jpg" alt="Jhon" class="hero__img">
+                </div>
+                <!-- Right Visual -->
+                <div
+                    class="lg:col-span-6 relative flex justify-center items-center mt-12 lg:mt-0 h-[400px] lg:h-[500px]">
+                    <!-- Profile Container -->
+                    <div class="w-full h-full flex justify-center items-center" style="opacity: 1; transform: none;">
+                        <img alt="work icons" draggable="false" loading="lazy" decoding="async" data-nimg="1"
+                            class="select-none" style="color:transparent" src="assets/img/hero-bg.svg">
+                    </div>
                 </div>
             </div>
         </section>
-
-        <!--=================== About ====================-->
-        <section id="about" class="section about">
-            <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">About Me</h2>
-                    <span class="section__subtitle">Who am I</span>
+        <!-- SECTION: About -->
+        <section class="min-h-screen scroll-mt-[120px] flex flex-col justify-center" id="about">
+            <h2 class="font-headline-lg text-headline-lg text-pure-white mb-stack-md flex items-center gap-4">
+                <span class="w-12 h-1 bg-gradient-to-r from-electric-cyan to-transparent rounded-full block"></span>
+                About Me
+            </h2>
+            <!-- Bento Grid Structure -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                <!-- Card 1: Bio (Col Span 2) -->
+                <div class="glass-card p-stack-md rounded-2xl md:col-span-2 relative group overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-4">The Developer Protocol</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-4">
+                        I am a multidisciplinary developer focused on bridging the gap between vast data ecosystems and
+                        intuitive
+                        user interfaces. With a core foundation in backend architecture and a deep mastery of cloud
+                        integration, I
+                        engineer systems that are not just functional, but intelligently proactive.
+                    </p>
+                    <p class="font-body-md text-body-md text-on-surface-variant">
+                        My approach merges traditional software paradigms with cutting-edge AI deployments, ensuring
+                        that the
+                        applications of today are ready for the unseen challenges of tomorrow's digital frontier.
+                    </p>
                 </div>
-                <div class="d-grid about__wrapper">
-                    <div class="about__content">
-                        <h3 class="about__title">I'm a Experienced Web Developer.</h3>
-                        <p class="about__description">Full Stack Developer and Azure Automation Specialist with expertise in DevOps, 
-                            backend development using ASP.NET and PHP, and frontend technologies including HTML, CSS, and JavaScript. 
-                            Skilled in database management with SQL Server, data analysis with Power BI and R, and programming in Python.
+                <!-- Card 2: AI Spotlight (Col Span 1) -->
+                <div
+                    class="glass-card p-stack-md rounded-2xl relative overflow-hidden flex flex-col justify-between group">
+                    <div class="spark-move"></div>
+                    <div class="absolute inset-0 bg-surface-container-highest/30 z-0"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="material-symbols-outlined text-neon-purple">psychology</span>
+                            <h4 class="font-headline-md text-pure-white text-[26px]">AI Solutions &amp; LLM Workflows
+                            </h4>
+                        </div>
+                        <p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">
+                            Integrating advanced intelligence models directly into robust data pipelines.
                         </p>
-                        <h4 style="margin-bottom: 10px;">Programming languages</h4>
-                        <div class="icons__list">
-                            <div class="icons__block">
-                                <div><img src="assets/img/Python.png"></div>
-                                <span class="iconstxt__list">Python</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/PHP.png"></div>
-                                <span class="iconstxt__list">PHP</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/NET.png"></div>
-                                <span class="iconstxt__list">ASP.NET</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/SQL-Server.png"></div>
-                                <span class="iconstxt__list">SQL Server</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/MySQL.png"></div>
-                                <span class="iconstxt__list">MySQL</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/R.png"></div>
-                                <span class="iconstxt__list">R</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/HTML.png"></div>
-                                <span class="iconstxt__list">HTML</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/CSS.png"></div>
-                                <span class="iconstxt__list">CSS</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/JavaScript.png"></div>
-                                <span class="iconstxt__list">JavaScript</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/Bootstrap.png"></div>
-                                <span class="iconstxt__list">Bootstrap</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/React.png"></div>
-                                <span class="iconstxt__list">React</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/WinForms.png"></div>
-                                <span class="iconstxt__list">WinForms</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/PowerBI.png"></div>
-                                <span class="iconstxt__list">DAX Power BI</span>
-                            </div>
+                    </div>
+                    <div class="relative z-10 flex flex-wrap gap-2">
+                        <span
+                            class="px-3 py-1 rounded-full bg-primary-container/20 border border-primary-container/50 font-label-caps text-label-caps text-primary">Claude</span>
+                        <span
+                            class="px-3 py-1 rounded-full bg-secondary-container/20 border border-secondary-container/50 font-label-caps text-label-caps text-secondary">Google
+                            Gemini</span>
+                        <span
+                            class="px-3 py-1 rounded-full bg-neon-purple/20 border border-neon-purple/50 font-label-caps text-label-caps text-pure-white">DeepSeek</span>
+                        <span
+                            class="px-3 py-1 rounded-full bg-azure-blue/20 border border-azure-blue/50 font-label-caps text-label-caps text-azure-blue">OpenAI</span>
+                        <span
+                            class="px-3 py-1 rounded-full bg-azure-white/20 border border-azure-blue/50 font-label-caps text-label-caps text-azure-blue">Ollama</span>
+                    </div>
+                </div>
+                <!-- Card 3: Tech Ecosystem (Col Span 3) -->
+                <div class="glass-card p-stack-md rounded-2xl md:col-span-3">
+                    <h3
+                        class="font-label-md text-label-md font-bold text-on-surface mb-6 uppercase tracking-widest text-center md:text-left">
+                        Programming languages</h3>
+                    <div class="flex flex-wrap gap-3 justify-center md:justify-center">
+                        <!-- Iterating through tech stack -->
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/Python.png" alt="Python" class="w-6 h-6">
+                            Python
                         </div>
-                        <h4 style="margin-top: 10px; margin-bottom: 10px;">Development environments</h4>
-                        <div class="icons__list">
-                            <div class="icons__block" style="height: 80px;">
-                                <div><img src="assets/img/Azure.png"></div>
-                                <span class="iconstxt__list">Azure</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/Visual-Studio.png"></div>
-                                <span class="iconstxt__list">Visual Studio</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/Visual-Studio-Code.png"></div>
-                                <span class="iconstxt__list">Visual Code</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/SSMS.png"></div>
-                                <span class="iconstxt__list">SQL Server Management</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/MySQL-Workbench.png"></div>
-                                <span class="iconstxt__list">MySQL Workbench</span>
-                            </div>
-                            <div class="icons__block" style="height: 80px;">
-                                <div><img src="assets/img/Github.png" style="filter: invert(1);"></div>
-                                <span class="iconstxt__list">Github</span>
-                            </div>
-                            <div class="icons__block">
-                                <div><img src="assets/img/Powershell-ISE.png"></div>
-                                <span class="iconstxt__list">Powershell ISE</span>
-                            </div>
-                            <div class="icons__block" style="height: 80px;">
-                                <div><img src="assets/img/PowerBI-Desktop.png"></div>
-                                <span class="iconstxt__list">Power BI</span>
-                            </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/PHP.png" alt="PHP" class="w-6 h-6">
+                            PHP
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/NET.png" alt="ASP.NET" class="w-6 h-6">
+                            ASP.NET
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/SQL-Server.png" alt="SQL Server" class="w-6 h-6">
+                            SQL Server
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/MySQL.png" alt="MySQL" class="w-6 h-6">
+                            MySQL
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/R.png" alt="R" class="w-6 h-6">
+                            R
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/HTML.png" alt="HTML" class="w-6 h-6">
+                            HTML
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/CSS.png" alt="CSS" class="w-6 h-6">
+                            CSS
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/JavaScript.png" alt="JavaScript" class="w-6 h-6">
+                            JavaScript
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/Bootstrap.png" alt="Bootstrap" class="w-6 h-6">
+                            Bootstrap
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/React.png" alt="React" class="w-6 h-6">
+                            React
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/WinForms.png" alt="WinForms" class="w-6 h-6">
+                            WinForms
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/PowerBI.png" alt="DAX Power BI" class="w-6 h-6">
+                            DAX Power BI
                         </div>
                     </div>
-                    <div class="skills">
-                        <h3 class="skills__title">Technologies I've been working with:</h3>
-                        <div class="skills__wrapper">
-                            <div class="skills__content">
-                                <h4 class="skills__subtitle">Backend</h4>
-                                <ul class="skills__list">
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        Azure</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        Python</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        PHP</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        ASP.NET</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        SQL Server</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        MySQL</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        R</li>
-                                </ul>
-                            </div>
-                            <div class="skills__content">
-                                <h4 class="skills__subtitle">Frontend</h4>
-                                <ul class="skills__list">
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        HTML</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        CSS/Sass</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        JavaScript</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        Bootstrap</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        React</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        WinForms</li>
-                                    <li class="skills__item"><i class="ri-arrow-right-s-fill"></i>
-                                        PowerBI</li>
-                                </ul>
-                            </div>
+
+                    <h3
+                        class="font-label-md text-label-md font-bold text-on-surface mb-6 uppercase tracking-widest text-center md:text-left mt-6">
+                        Development environments</h3>
+                    <div class="flex flex-wrap gap-3 justify-center md:justify-center">
+                        <!-- Iterating through tech stack -->
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/Azure.png" alt="Azure Cloud" class="w-6 h-6">
+                            Azure Cloud
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/Visual-Studio.png" alt="Visual Studio" class="w-6 h-6">
+                            Visual Studio
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/Visual-Studio-Code.png" alt="Visual Code" class="w-6 h-6">
+                            Visual Code
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/SSMS.png" alt="SQL Server Management" class="w-6 h-6">
+                            SQL Server
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/MySQL-Workbench.png" alt="MySQL Workbench" class="w-6 h-6">
+                            MySQL Workbench
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/Github.png" alt="Github" class="w-6 h-6">
+                            Github
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/Powershell-ISE.png" alt="Powershell ISE" class="w-6 h-6">
+                            Powershell ISE
+                        </div>
+                        <div
+                            class="px-4 py-2 rounded-lg border border-glass-border bg-surface-container/50 hover:bg-surface-container-high transition-colors font-body-md text-body-md text-on-surface flex flex-col items-center gap-2">
+                            <img src="assets/img/PowerBI-Desktop.png" alt="Power BI" class="w-6 h-6">
+                            Power BI
                         </div>
                     </div>
                 </div>
+                <!-- Card 4: Security (Col Span 4) -->
+                <!-- 
+                <div
+                    class="flex flex-row relative items-center justify-center min-h-screen w-full h-full -z-20 md:col-span-4">
+                    <div class="absolute w-auto h-auto top-0 z-[5]">
+                        <div class="text-[30px] font-medium text-center text-gray-200">Performance<span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">&amp;</span>
+                            security.</div>
+                    </div>
+                    <div
+                        class="flex flex-col items-center justify-center translate-y-[-50px] absolute z-[20] w-auto h-auto">
+                        <div class="flex flex-col items-center group cursor-pointer w-auto h-auto"><img alt="Lock top"
+                                loading="lazy" width="50" height="50" decoding="async" data-nimg="1"
+                                class="translate-y-5 transition-all duration-200 group-hover:translate-y-11"
+                                style="color:transparent"
+                                srcset="assets/img/security1.webp?url=%2Flock-top.png&amp;w=64&amp;q=75 1x, assets/img/security1.webp?url=%2Flock-top.png&amp;w=128&amp;q=75 2x"
+                                src="assets/img/security1.webp?url=%2Flock-top.png&amp;w=128&amp;q=75"><img
+                                alt="Lock main" loading="lazy" width="70" height="70" decoding="async" data-nimg="1"
+                                class="z-10" style="color:transparent"
+                                srcset="assets/img/security2.webp?url=%2Flock-main.png&amp;w=96&amp;q=75 1x, assets/img/security2.webp?url=%2Flock-main.png&amp;w=256&amp;q=75 2x"
+                                src="assets/img/security2.webp?url=%2Flock-main.png&amp;w=256&amp;q=75"></div>
+                        <div
+                            class="Welcome-box px-[15px] py-[4px] z-[20] border my-[20px] border-[#7042F88B] opacity-[0.9]">
+                            <h1 class="Welcome-text text-[12px]">Encryption</h1>
+                        </div>
+                    </div>
+                    <div class="absolute z-[20] bottom-[10px] px-[5px]">
+                        <div class="cursive text-[20px] font-medium text-center text-gray-300">Secure your data with
+                            end-to-end
+                            encryption.</div>
+                    </div>
+                    <div class="w-full flex items-start justify-center absolute" style="background-color: #030214;">
+                        <video id="encryption-video" loop="" muted="" autoplay="" playsinline="" preload="false"
+                            class="w-full h-auto" style="mix-blend-mode: screen;">
+                            <source src="assets/video/encryption-bg.webm" type="video/webm">
+                        </video>
+                    </div>
+                </div>
+                -->
             </div>
         </section>
 
-        <!--=================== Qualification ====================-->
-        <section id="qualification" class="section qualification">
-            <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Qualification</h2>
-                    <span class="section__subtitle">Experience & Education</span>
-                </div>
-                <!--============== Professional Experience ============-->
-                <div class="qualification__wrapper">
-                    <h3 class="qualification__name">
-                        <i class="ri-briefcase-fill"></i>
+        <!-- SECTION: Qualification -->
+        <section class="min-h-screen scroll-mt-[120px] flex flex-col justify-center" id="qualification">
+            <h2
+                class="font-headline-lg text-headline-lg text-pure-white mb-stack-md flex items-center gap-4 justify-end">
+                Qualification
+                <span class="w-12 h-1 bg-gradient-to-l from-secondary to-transparent rounded-full block"></span>
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-lg">
+                <!-- Column 1: Experience -->
+                <div class="flex flex-col gap-8">
+                    <h3 class="font-headline-md text-headline-md text-primary flex items-center gap-3 mb-4">
+                        <span class="material-symbols-outlined text-[32px]">work</span>
                         Professional Experience
                     </h3>
-                    <div class="d-grid qualification__content">
-                        <!-- Experience 1-->
-                        <div class="qualification__item">
-                            <h3 class="qualification__title">Support in the field of Analytics, Big Data Solution Architect</h3>
-                            <p class="qualification__description">Designed and developed technological solutions for mining, 
-                                data analysis, and automation, in Azure and Apps.</p>
-                            <span class="qualification__date">May 2020 - Present</span>
+                    <div class="relative border-l border-glass-border pl-8 flex flex-col gap-8">
+                        <!-- Node 1 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-surface border-2 border-electric-cyan shadow-[0_0_10px_#06B6D4]">
+                            </div>
+                            <div
+                                class="glass-card p-6 rounded-xl group hover:border-electric-cyan/50 transition-colors">
+                                <div
+                                    class="inline-block px-3 py-1 bg-surface-container-high rounded font-label-caps text-label-caps text-electric-cyan mb-3">
+                                    2020 - May 2026</div>
+                                <h4 class="font-body-lg text-body-lg font-bold text-pure-white">Big Data Architect &amp;
+                                    Backend Lead
+                                </h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-2">Designing scalable
+                                    data ingestion
+                                    pipelines and orchestrating microservices within the Azure ecosystem to support
+                                    high-throughput AI
+                                    model training.</p>
+                            </div>
                         </div>
-                        <!-- Experience 2-->
-                        <div class="qualification__item">
-                            <h3 class="qualification__title">Web Application Development - Claro Call Center</h3>
-                            <p class="qualification__description">Designed and developed a web application that emulates the functionalities of Claro, 
-                                intended for a call center, using technologies such as HTML, CSS, JavaScript, PHP, and MySQL.</p>
-                            <span class="qualification__date">Feb 2020</span>
+                        <!-- Node 2 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-surface border-2 border-glass-border">
+                            </div>
+                            <div class="glass-card p-6 rounded-xl group hover:border-glass-border/80 transition-colors">
+                                <div
+                                    class="inline-block px-3 py-1 bg-surface-container-high rounded font-label-caps text-label-caps text-on-surface-variant mb-3">
+                                    2020</div>
+                                <h4 class="font-body-lg text-body-lg font-bold text-pure-white">Claro Web App Developer
+                                </h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-2">Developed core portal
+                                    functionalities,
+                                    optimized database queries, and implemented RESTful APIs for telecommunications
+                                    customer dashboards.
+                                </p>
+                            </div>
                         </div>
-                        <!-- Experience 3-->
-                        <div class="qualification__item">
-                            <h3 class="qualification__title">Development of Web Application for Incidents - UTI UNJBG</h3>
-                            <p class="qualification__description">Implemented a web solution to record and manage incidents in the 
-                                Information Technology Unit (UTI) of UNJBG, using a technology stack that included HTML, CSS, JavaScript, PHP, and MySQL.</p>
-                            <span class="qualification__date">Nov - Dic 2019</span>
-                        </div>
-                        <!-- Experience 4-->
-                        <div class="qualification__item">
-                            <h3 class="qualification__title">WiFi Interface Design - UNJBG</h3>
-                            <p class="qualification__description">Created an interface for wireless access to WiFi networks at the 
-                                National University Jorge Basadre Grohmann (UNJBG), optimizing the user experience in connecting to the internet.</p>
-                            <span class="qualification__date">Oct 2019</span>
-                        </div>
-                        <!-- Experience 5-->
-                        <div class="qualification__item">
-                            <h3 class="qualification__title">Web Application - Attendee Management</h3>
-                            <p class="qualification__description">I designed and developed a web application using PHP, HTML, JavaScript, and CSS. 
-                                This tool enabled the efficient management of attendee data for the international congress CIISXX.</p>
-                            <span class="qualification__date">Apr - Nov 2019</span>
+                        <!-- Node 3 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-surface border-2 border-glass-border">
+                            </div>
+                            <div class="glass-card p-6 rounded-xl group hover:border-glass-border/80 transition-colors">
+                                <div
+                                    class="inline-block px-3 py-1 bg-surface-container-high rounded font-label-caps text-label-caps text-on-surface-variant mb-3">
+                                    2019</div>
+                                <h4 class="font-body-lg text-body-lg font-bold text-pure-white">USI UNJBG Developer</h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-2">Built internal
+                                    institutional software
+                                    utilizing legacy integration and modern front-end wrappers for university
+                                    administration.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!--============== Education ============-->
-                <div class="qualification__wrapper">
-                    <h3 class="qualification__name">
-                        <i class="ri-booklet-fill"></i>
-                        Education
+                <!-- Column 2: Education -->
+                <div class="flex flex-col gap-8">
+                    <h3 class="font-headline-md text-headline-md text-neon-purple flex items-center gap-3 mb-4">
+                        <span class="material-symbols-outlined text-[32px]">school</span>
+                        Education &amp; Certification
                     </h3>
-                    <div class="d-grid qualification__content">
-                        <!-- Education 1-->
-                        <div class="qualification__item">
-                            <h3 class="qualification__title">Foundational C# with Microsoft</h3>
-                            <p class="qualification__description">Certified in foundational C# programming, covering core concepts, 
-                                object-oriented principles, and .NET Framework development.</p>
-                            <span class="qualification__date">Expedición: sept. 2024</span>
-                        </div>
-                        <!-- Education 2-->
-                        <div class="qualification__item">
-                            <h3 class="qualification__title">Universidad Nacional Jorge Basadre Grohmann</h3>
-                            <p class="qualification__description">Higher Level</p>
-                            <span class="qualification__date">Apr 2015 - Dic 2019</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--=================== services ====================-->
-        <section id="service" class="section service">
-            <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Services</h2>
-                    <span class="section__subtitle">What I do</span>
-                </div>
-                <div class="d-grid service__wrapper">
-                    <!--========= service card 1 =========-->
-                    <div class="service__card">
-                        <div class="service__icon">
-                            <i class="ri-layout-4-fill"></i>
-                        </div>
-                        <h3 class="service__title">Frontend<br>Development</h3>
-                        <!-- <a href="#" class="service__link">Know More</a> -->
-                    </div>
-                    <!--========= service card 2 =========-->
-                    <div class="service__card">
-                        <div class="service__icon">
-                            <i class="ri-code-s-slash-line"></i>
-                        </div>
-                        <h3 class="service__title">Backend<br> Development</h3>
-                    </div>
-                    <!--========= service card 3 =========-->
-                    <div class="service__card">
-                        <div class="service__icon">
-                            <img src="assets/img/Azure.png" style="width: 35px;filter: brightness(0) invert(1);">
-                        </div>
-                        <h3 class="service__title">Azure<br> Service</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--=================== Projects ====================-->
-        <section id="project" class="section project">
-            <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Projects</h2>
-                    <span class="section__subtitle">My recent work</span>
-                </div>
-                <div class="d-grid project__wrapper">
-                    <!--============== project 1 =============-->
-                    <div class="project__content">
-                        <img src="assets/img/project3.jpg" alt="Aplicación Web - Diseño y Gestión de Asistentes" class="project__img">
-                        <h3 class="project__title">Aplicación Web - Diseño y Gestión de Asistentes</h3>
-                        <p class="project__description">Plataforma web para un evento académico (CIIS) que incluye un diseño dinámico, 
-                            menús interactivos y gestión de asistentes.</p>
-                        <a href="https://web-ciisxx.vercel.app/" class="project__link" target="_blank">View Project
-                            <i class="ri-arrow-right-line"></i></a>
-                    </div>
-                    <!--============== project 2 =============-->
-                    <div class="project__content">
-                        <img src="assets/img/project1.jpg" alt="Desarrollo de Aplicación Web de Incidencias - USI UNJBG" class="project__img">
-                        <h3 class="project__title">Desarrollo de Aplicación Web de Incidencias - USI UNJBG</h3>
-                        <p class="project__description">Sistema web para gestionar el registro, seguimiento y resolución de incidencias en la USI de la UNJBG, 
-                            desarrollado con tecnologías modernas para garantizar eficiencia y usabilidad.</p>
-                        <a href="https://web-incidencias.vercel.app/" class="project__link" target="_blank">View Project<i class="ri-arrow-right-line"></i></a>
-                    </div>
-                    <!--============== project 3 =============-->
-                    <div class="project__content">
-                        <img src="assets/img/project2.jpg" alt="Diseño de Interfaz WiFi - UNJBG" class="project__img">
-                        <h3 class="project__title">Diseño de Interfaz WiFi - UNJBG</h3>
-                        <p class="project__description">Web enfocada en la autenticación de inicio de sesión para usuarios de la red 
-                            WiFi de la Universidad Nacional Jorge Basadre Grohmann. Cuenta con un diseño intuitivo y 
-                            adaptable a dispositivos móviles.</p>
-                        <a href="https://wifi-unjbg.vercel.app/" class="project__link" target="_blank">View Project
-                            <i class="ri-arrow-right-line"></i></a>
-                    </div>
-                    <!--============== project 4 =============-->
-                    <div class="project__content">
-                        <img src="assets/img/project4.jpg" alt="Desarrollo de Aplicación Web - Call Center Claro" class="project__img">
-                        <h3 class="project__title">Desarrollo de Aplicación Web - Call Center Claro</h3>
-                        <p class="project__description">Aplicación web para gestionar llamadas y servicios, y generar reportes en tiempo real, 
-                            optimizando la atención al cliente con tecnologías modernas y un diseño intuitivo.</p>
-                        <a href="https://web-clon-claro.vercel.app/" class="project__link" target="_blank">View Project
-                            <i class="ri-arrow-right-line"></i></a>
-                    </div>
-                    <!--============== project 5 =============-->
-                    <div class="project__content">
-                        <img src="assets/img/project5.jpg" alt="Desarrollo de ChatBot Web Inteligente con flujos y usuarios" class="project__img">
-                        <h3 class="project__title">Desarrollo de ChatBot Web Inteligente con flujos y usuarios</h3>
-                        <p class="project__description">Chatbot web con flujos personalizados y gestión de usuarios, 
-                            diseñado para interacción eficiente y soporte optimizado.</p>
-                        <a href="#" class="project__link" target="_blank">View Project
-                            <i class="ri-arrow-right-line"></i></a>
-                    </div>
-                    
-                </div>
-            </div>
-        </section>
-
-        <!--=================== Testimonials ====================-->
-        <section id="testimonial" class="section testimonial" style="display: none;">
-            <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Testimonials</h2>
-                    <span class="section__subtitle">What my clients say</span>
-                </div>
-                <div class="testimonial__wrapper swiper">
-
-                    <div class="swiper-wrapper">
-                        <!--========= testimonial 1 ============ -->
-                        <div class="testimonial__card swiper-slide">
-                            <img src="assets/img/testimonial1.jpg" alt="Natasha Smith" class="testimonial__img">
-                            <div class="testimonial__content">
-                                <p class="testimonial__description">Lorem ipsum dolor sit amet consectetur. Dignissim
-                                    tincidunt egestas vitae porttitor nulla gravida commodo.</p>
-                                <h3 class="testimonial__name">Natasha Smith</h3>
-                                <span class="testimonial__occupation">UI/UX Designer at Dribbble</span>
+                    <div class="relative border-l border-glass-border pl-8 flex flex-col gap-8">
+                        <!-- Node 1 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-surface border-2 border-neon-purple shadow-[0_0_10px_#7042F8]">
+                            </div>
+                            <div class="glass-card p-6 rounded-xl group hover:border-neon-purple/50 transition-colors">
+                                <div
+                                    class="inline-block px-3 py-1 bg-surface-container-high rounded font-label-caps text-label-caps text-neon-purple mb-3">
+                                    2024</div>
+                                <h4 class="font-body-lg text-body-lg font-bold text-pure-white">Foundational C#
+                                    Certification</h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-2">Microsoft Certified
+                                </p>
                             </div>
                         </div>
-                        <!--========= testimonial 2 ============ -->
-                        <div class="testimonial__card swiper-slide">
-                            <img src="assets/img/testimonial2.jpg" alt="John Clarke" class="testimonial__img">
-                            <div class="testimonial__content">
-                                <p class="testimonial__description">Lorem ipsum dolor sit amet consectetur. Dignissim
-                                    tincidunt egestas vitae porttitor nulla gravida commodo.</p>
-                                <h3 class="testimonial__name">John Clarke</h3>
-                                <span class="testimonial__occupation">Web Developer at Facebook</span>
+                        <!-- Node 2 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-surface border-2 border-glass-border">
                             </div>
-                        </div>
-                        <!--========= testimonial 3 ============ -->
-                        <div class="testimonial__card swiper-slide">
-                            <img src="assets/img/testimonial3.jpg" alt="Emily Walker" class="testimonial__img">
-                            <div class="testimonial__content">
-                                <p class="testimonial__description">Lorem ipsum dolor sit amet consectetur. Dignissim
-                                    tincidunt egestas vitae porttitor nulla gravida commodo.</p>
-                                <h3 class="testimonial__name">Emily Walker</h3>
-                                <span class="testimonial__occupation">Backend Developer at Google
-                                </span>
+                            <div class="glass-card p-6 rounded-xl group hover:border-glass-border/80 transition-colors">
+                                <div
+                                    class="inline-block px-3 py-1 bg-surface-container-high rounded font-label-caps text-label-caps text-on-surface-variant mb-3">
+                                    2015 - 2019</div>
+                                <h4 class="font-body-lg text-body-lg font-bold text-pure-white">Bachelor of Systems
+                                    Engineering</h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-2">UNJBG - Focus on
+                                    computational logic,
+                                    database architecture, and software lifecycle management.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+        <!-- Services Section -->
+        <section
+            class="min-h-screen pt-32 pb-stack-lg px-margin-mobile md:px-margin-desktop relative z-10 flex flex-col justify-center"
+            id="services">
+            <h2 class="font-headline-lg text-headline-lg text-pure-white mb-stack-md flex items-center gap-4">
+                <span class="w-12 h-1 bg-gradient-to-r from-electric-cyan to-transparent rounded-full block"></span>
+                My Services
+            </h2>
+            <div class="max-w-container-max mx-auto w-full">
+                <div class="mb-stack-md text-center">
+                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Specialized in
+                        building
+                        scalable, intelligent, and visually stunning digital solutions.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+                    <!-- Service 1 -->
+                    <div
+                        class="glass-panel rounded-xl p-8 card-hover-effect flex flex-col items-start relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container/20 rounded-full blur-2xl">
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-lg bg-primary-container/20 flex items-center justify-center border border-primary-container/30 mb-6">
+                            <span class="material-symbols-outlined text-primary text-3xl">smart_toy</span>
+                        </div>
+                        <h3 class="font-headline-md text-headline-md text-pure-white mb-4">AI Solutions &amp; LLM</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Integration of advanced language
+                            models and
+                            AI-driven features to automate workflows and enhance user interactions.</p>
+                    </div>
+                    <!-- Service 2 -->
+                    <div
+                        class="glass-panel rounded-xl p-8 card-hover-effect flex flex-col items-start relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-32 h-32 bg-azure-blue/20 rounded-full blur-2xl"></div>
+                        <div
+                            class="w-12 h-12 rounded-lg bg-azure-blue/20 flex items-center justify-center border border-azure-blue/30 mb-6">
+                            <span class="material-symbols-outlined text-electric-cyan text-3xl">cloud</span>
+                        </div>
+                        <h3 class="font-headline-md text-headline-md text-pure-white mb-4">Cloud &amp; Azure Services
+                        </h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Architecting and deploying robust
+                            cloud
+                            infrastructure, ensuring high availability and scalability using Microsoft Azure.</p>
+                    </div>
+                    <!-- Service 3 -->
+                    <div
+                        class="glass-panel rounded-xl p-8 card-hover-effect flex flex-col items-start relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-32 h-32 bg-electric-cyan/20 rounded-full blur-2xl">
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-lg bg-electric-cyan/20 flex items-center justify-center border border-electric-cyan/30 mb-6">
+                            <span class="material-symbols-outlined text-electric-cyan text-3xl">dns</span>
+                        </div>
+                        <h3 class="font-headline-md text-headline-md text-pure-white mb-4">Backend Architecture</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Designing resilient microservices
+                            and secure
+                            APIs that serve as the backbone for high-performance applications.</p>
+                    </div>
+                    <!-- Service 4 -->
+                    <div
+                        class="glass-panel rounded-xl p-8 card-hover-effect flex flex-col items-start relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-2xl"></div>
+                        <div
+                            class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30 mb-6">
+                            <span class="material-symbols-outlined text-primary text-3xl">code_blocks</span>
+                        </div>
+                        <h3 class="font-headline-md text-headline-md text-pure-white mb-4">Modern Frontend</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Crafting immersive, interactive
+                            glassmorphic
+                            interfaces with precise animations and responsive fluid grids.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Projects Section -->
+        <section class="min-h-screen py-stack-lg px-margin-mobile md:px-margin-desktop relative z-10" id="projects">
+            <h2
+                class="font-headline-lg text-headline-lg text-pure-white mb-stack-md flex items-center gap-4 justify-end">
+                Featured Projects
+                <span class="w-12 h-1 bg-gradient-to-l from-secondary to-transparent rounded-full block"></span>
+            </h2>
+            <div class="max-w-container-max mx-auto w-full">
+                <!-- Category A: AI-Powered -->
+                <div class="mb-stack-lg">
+                    <div class="flex items-center gap-4 mb-6">
+                        <h3 class="font-headline-md text-headline-md text-pure-white">AI-Powered Innovations</h3>
+                        <span
+                            class="badge-ai px-3 py-1 rounded-full font-label-caps text-label-caps uppercase animate-pulse">Neon
+                            Badge</span>
+                    </div>
+                    <div class="glass-panel rounded-xl overflow-hidden card-hover-effect flex flex-col md:flex-row">
+                        <div class="w-full md:w-1/2 min-h-[300px]"
+                            data-alt="A futuristic, glowing visualization of a neural network communicating with a web interface, depicted in deep space purples, electric cyans, and dark obsidian. The visualization should look like a high-end UI dashboard showcasing AI chatbot metrics with floating glass panels and particle effects, lit by intense, soft holographic light. Professional, highly polished glassmorphic aesthetic."
+                            style="background-image: url('assets/img/project5.jpg'); background-size: cover;">
+                        </div>
+                        <div class="p-8 w-full md:w-1/2 flex flex-col justify-center">
+                            <h4 class="font-headline-md text-[24px] text-pure-white mb-4">Intelligent Flow-Based Web
+                                Chatbot</h4>
+                            <p class="font-body-md text-body-md text-on-surface-variant mb-6">An advanced conversational
+                                interface
+                                utilizing localized LLMs to guide users through complex workflows via dynamic, generated
+                                UI components.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">AI /
+                                    LLM</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Web
+                                    Architecture</span>
+                                <span
+                                    class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Automation</span>
+                            </div>
+                            <a class="inline-flex items-center gap-2 text-electric-cyan font-label-md text-label-md hover:text-pure-white transition-colors"
+                                href="#">
+                                Explore Project <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Category B: Handcrafted -->
+                <div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <h3 class="font-headline-md text-headline-md text-pure-white">Handcrafted Platforms</h3>
+                        <span class="badge-tech px-3 py-1 rounded-full font-label-caps text-label-caps uppercase">System
+                            Architecture</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Proj 1 -->
+                        <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">CIISXX Platform</h4>
+                            <img src="assets/img/project3.jpg" alt="Aplicación Web - Diseño y Gestión de Asistentes"
+                                class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">Comprehensive
+                                enterprise
+                                resource planning system with real-time analytics.</p>
+                            <a href="https://web-ciisxx.vercel.app/" target="_blank"
+                                class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View
+                                Explore Project</a>
+                        </div>
+                        <!-- Proj 2 -->
+                        <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">USI Incident System</h4>
+                            <img src="assets/img/project1.jpg" alt="Aplicación Web - Diseño y Gestión de Asistentes"
+                                class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">Automated
+                                ticketing and
+                                resolution tracking for large-scale IT deployments.</p>
+                            <a href="https://web-incidencias.vercel.app/" target="_blank"
+                                class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View
+                                Explore Project</a>
+                        </div>
+                        <!-- Proj 3 -->
+                        <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">WiFi Captive Portal</h4>
+                            <img src="assets/img/project2.jpg" alt="Aplicación Web - Diseño y Gestión de Asistentes"
+                                class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">Customized
+                                authentication
+                                gateway with localized branding and CRM integration.</p>
+                            <a href="https://wifi-unjbg.vercel.app/" target="_blank"
+                                class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View
+                                Explore Project</a>
+                        </div>
+                        <!-- Proj 4 -->
+                        <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Claro Web App</h4>
+                            <img src="assets/img/project4.jpg" alt="Aplicación Web - Diseño y Gestión de Asistentes"
+                                class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">High-performance
+                                telecommunications portal for customer account management.</p>
+                            <a href="https://web-clon-claro.vercel.app/" target="_blank"
+                                class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View
+                                Explore Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact Section -->
+        <section
+            class="min-h-screen py-stack-lg px-margin-mobile md:px-margin-desktop relative z-10 flex flex-col justify-center overflow-hidden"
+            id="contact">
+            <div class="absolute inset-0 z-0">
+                <img src="assets/img/52666525500_c0d26c4138_o.jpg" alt="Background contact" class="h-full w-full object-cover opacity-25" />
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(112,66,248,0.28),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.22),transparent_35%)]"></div>
+            </div>
+            <div class="relative z-10 max-w-container-max mx-auto w-full flex flex-col md:flex-row gap-stack-md items-center">
+                <div class="w-full md:w-1/2">
+                    <h2 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-pure-white mb-6 drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]">Let's
+                        build<br />the future.</h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-md drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)]">Open for opportunities,
+                        collaborations, or a discussion on how AI can transform your architecture.</p>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full glass-panel flex items-center justify-center shadow-[0_0_14px_rgba(6,182,212,0.2)]">
+                                <span class="material-symbols-outlined text-primary text-sm">mail</span>
+                            </div>
+                            <span class="font-body-md text-body-md text-pure-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)]">jhonalvarado567@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 flex items-center justify-center">
+                    <div
+                        class="relative w-full max-w-[460px] aspect-square overflow-hidden rounded-[28px] border border-glass-border bg-surface-container-lowest shadow-[0_0_30px_rgba(112,66,248,0.18)]">
+                        <img src="assets/img/Profile.jpeg" alt="Jhon Alvarado profile" class="h-full w-full object-cover object-center" />
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!--=================== Contact ====================-->
-        <section id="contact" class="section contact">
-            <div class="container">
-                <div class="d-grid contact__wrapper">
-                    <div class="contact__content">
-                        <h2 class="contact__title">Interested in working together? Let's talk</h2>
-                        <p class="contact__description">
-                            
-                        </p>
-                    </div>
-                    <div class="contact__btn">
-                        <a href="mailto:jhonalvarado567@gmail.com" class="btn btn--secondary">Get in touch</a>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
-    <!--=================== footer ====================-->
-    <footer id="footer" class="footer">
-        <div class="container">
-            <div class="d-grid footer__wrapper">
-                <div class="footer__content">
-                    <h4 class="footer__title">Follow Me</h4>
-                    <ul class="footer__social-list">
-                        <li class="footer__social-item">
-                            <a href="https://www.facebook.com/john.alvarado.achata" class="footer__social-link" target="_blank">
-                                <i class="ri-facebook-fill"></i>
-                            </a>
-                        </li>
-                        <li class="footer__social-item">
-                            <a href="https://github.com/Jhoanii96" class="footer__social-link" target="_blank">
-                                <i class="ri-github-fill"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer__content">
-                    <h4 class="footer__title">Email Me</h4>
-                    <a href="mailto:jhonalvarado567@gmail.com" class="footer__contact">jhonalvarado567@gmail.com</a>
-                </div>
+    <!-- Footer -->
+    <footer
+        class="bg-surface-container-lowest/80 backdrop-blur-md border-t border-glass-border w-full py-stack-md mt-stack-lg relative z-10 fade-in transition-opacity duration-500">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto gap-4">
+            <div class="text-label-caps font-label-caps text-on-surface">
+                <span id="current-year"></span> Designed &amp; Built with Space Aesthetic
             </div>
-            <p class="footer__copyright">&copy; <span id="year"></span> @ All Rights Reserved</p>
-            <script>
-                // Get the current year and set it dynamically
-                document.getElementById("year").textContent = new Date().getFullYear();
-            </script>
+            <div class="flex gap-6 items-center">
+                <a class="inline-flex items-center gap-2 text-on-surface-variant hover:text-white hover:text-electric-cyan transition-colors duration-200 font-label-caps text-label-caps uppercase"
+                    href="https://github.com/Jhoanii96" target="_blank">
+                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 15 15" height="1em" width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M7.49902 0.25C11.5033 0.25 14.7499 3.4958 14.75 7.5C14.75 10.7023 12.6746 13.418 9.7959 14.3789C9.42852 14.4496 9.29802 14.2242 9.29785 14.0303C9.29785 13.7926 9.30664 13.0099 9.30664 12.041C9.30657 11.3647 9.07434 10.9221 8.81445 10.6982C10.4292 10.5189 12.125 9.90632 12.125 7.12109C12.125 6.32946 11.8444 5.68268 11.3799 5.17578C11.4542 4.99237 11.7023 4.25509 11.3066 3.25684C11.2917 3.25225 10.6824 3.07392 9.31543 4C8.73639 3.83933 8.11598 3.75897 7.5 3.75586C6.88373 3.75899 6.26356 3.83939 5.68555 4C4.30048 3.06223 3.69141 3.25684 3.69141 3.25684C3.29667 4.25506 3.54533 4.99237 3.62012 5.17578C3.15651 5.68268 2.87402 6.32946 2.87402 7.12109C2.87404 9.89919 4.56694 10.5207 6.17676 10.7041C5.96986 10.8852 5.78272 11.2049 5.7168 11.6729C5.3038 11.8584 4.25315 12.1788 3.60645 11.0713C3.60645 11.0713 3.2236 10.3756 2.49609 10.3242C2.49609 10.3242 1.78803 10.3151 2.44629 10.7646C2.46065 10.7715 2.92629 11.0006 3.25098 11.8252C3.25565 11.8405 3.6878 13.2324 5.69336 12.7969C5.69692 13.4017 5.70312 13.858 5.70312 14.0303C5.70295 14.2225 5.57051 14.4462 5.20801 14.3799C2.32708 13.4207 0.25 10.7027 0.25 7.5C0.250136 3.49591 3.49627 0.250167 7.49902 0.25Z"
+                            fill="currentColor"></path>
+                    </svg>
+                    GitHub
+                </a>
+                <a class="inline-flex items-center gap-2 text-on-surface-variant hover:text-white hover:text-electric-cyan transition-colors duration-200 font-label-caps text-label-caps uppercase"
+                    href="https://www.linkedin.com/in/jhon-alvarado-achata/" target="_blank">
+                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 15 15" height="1em" width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M13 1C13.5523 1 14 1.44772 14 2V13C14 13.5523 13.5523 14 13 14H2C1.44772 14 1 13.5523 1 13V2C1 1.44772 1.44772 1 2 1H13ZM9.6748 5.85059C9.29545 5.83189 8.9175 5.91127 8.5791 6.08105C8.32209 6.21005 8.05222 6.50526 7.84473 7.01855H7.79199V6H6V12.0049H7.90625V8.81152C7.8787 8.48445 7.98312 8.06112 8.19727 7.80957C8.41141 7.5581 8.71797 7.49828 8.9502 7.46777H9.02246C9.62862 7.46777 10.0781 7.84339 10.0781 8.78906V12.0049H11.9844L12 8.35742C12 6.55255 10.8336 5.85071 9.6748 5.85059ZM3.0498 12H4.9502V6H3.0498V12ZM4 2.92969C3.40633 2.92969 2.92487 3.41123 2.9248 4.00488C2.9248 4.59859 3.4063 5.08008 4 5.08008C4.59371 5.08008 5.0752 4.59859 5.0752 4.00488C5.07513 3.41123 4.59367 2.92969 4 2.92969Z"
+                            fill="currentColor"></path>
+                    </svg>
+                    LinkedIn
+                </a>
+            </div>
         </div>
     </footer>
-
-    <!--=================== SwiperJS  ====================-->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
-    <!--=================== ScrollReveal ==================-->
-    <script src="https://unpkg.com/scrollreveal"></script>
-
-    <!--=================== Main JS ====================-->
-    <script src="assets/js/main.js"></script>
-
+    <script src="assets/js/stars.js"></script>
     <script>
-        // Define the starting year
-        const startingYear = 2020;
-    
-        // Get the current year
-        const currentYear = new Date().getFullYear();
-    
-        // Calculate years of experience
-        const yearsOfExperience = currentYear - startingYear;
-    
-        // Update the HTML content
-        document.getElementById('experienceYears').textContent = 
-            yearsOfExperience.toString().padStart(2, '0');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        const mobileMenuLinks = mobileMenuPanel.querySelectorAll('a');
+
+        const setMobileMenuState = (isOpen) => {
+            mobileMenuPanel.classList.toggle('hidden', !isOpen);
+            mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+            const icon = mobileMenuButton.querySelector('.material-symbols-outlined');
+            icon.textContent = isOpen ? 'close' : 'menu';
+        };
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isOpen = !mobileMenuPanel.classList.contains('hidden');
+            setMobileMenuState(!isOpen);
+        });
+
+        mobileMenuLinks.forEach((link) => {
+            link.addEventListener('click', () => setMobileMenuState(false));
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                setMobileMenuState(false);
+            }
+        });
+
+        document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
 
