@@ -230,21 +230,22 @@
                     </p>
                     <!-- Actions -->
                     <div class="flex flex-wrap gap-4 mb-12 w-full">
-                        <button
+                        <a href="assets/files/preview-cv.pdf" target="_blank"
                             class="px-6 py-3 rounded-full font-label-md text-label-md font-bold text-pure-white bg-gradient-to-r from-neon-purple to-secondary-container hover:brightness-110 shadow-[0_0_20px_rgba(112,66,248,0.3)] hover:shadow-[0_0_30px_rgba(112,66,248,0.5)] transition-all duration-300 flex items-center gap-2">
                             <span class="material-symbols-outlined">description</span>
                             View CV
-                        </button>
-                        <button
+                        </a>
+                        <button id="download-cv-btn"
                             class="px-6 py-3 rounded-full font-label-md text-label-md font-bold text-pure-white glass-card hover:bg-surface-container-high transition-colors duration-300 flex items-center gap-2">
                             <span class="material-symbols-outlined">download</span>
                             Download PDF
                         </button>
-                        <button
+                        <a href="#contact"
                             class="px-6 py-3 rounded-full font-label-md text-label-md font-bold text-electric-cyan border border-transparent hover:border-glass-border transition-colors duration-300 flex items-center gap-2">
                             Contact Me
                             <span class="material-symbols-outlined">arrow_forward</span>
-                        </button>
+                        </a>
+
                     </div>
                     <!-- Bento Stats -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
@@ -878,6 +879,34 @@
         });
 
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Generate GUID for filename
+        function generateGUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0,
+                    v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        // Handle PDF download with application/octet-stream
+        const downloadCvBtn = document.getElementById('download-cv-btn');
+        downloadCvBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch('assets/files/full-cv.pdf');
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(new Blob([blob], { type: 'application/octet-stream' }));
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = 'cv-full-stack.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(blobUrl);
+            } catch (error) {
+                console.error('Error downloading file:', error);
+            }
+        });
     </script>
 </body>
 
