@@ -222,7 +222,7 @@ a {
 }
 
 .details__row {
-    margin-bottom: 1.2rem
+    margin-bottom: 0
 }
 
 .details__row:after {
@@ -287,7 +287,7 @@ a {
 }
 
 .technical-skills .details__column {
-    padding: 1.6rem 1rem !important;
+    padding: 2.2rem 2.5rem !important;
     background-color: #f8fafc !important;
 }
 
@@ -302,7 +302,6 @@ a {
     text-align: left;
     width: 100%;
     padding: 0 0 0.6rem;
-    border-bottom: 2px solid #1f2937;
     color: #111827;
     font-size: 1.85rem;
     letter-spacing: 0.02rem;
@@ -317,9 +316,9 @@ a {
     width: auto;
     margin: 0.55rem 0.65rem 0 0;
     padding: 0.45rem 0.75rem;
-    border: 1px solid #cbd5e1;
+    /* border: 1px solid #cbd5e1; */
     border-radius: 999px;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     color: #1f2937;
     font-size: 1.45rem;
     line-height: 1.2;
