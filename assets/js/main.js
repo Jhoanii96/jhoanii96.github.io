@@ -89,3 +89,64 @@ sr.reveal(".qualification__footer-text, .contact__content", {
 });
 
 sr.reveal(".qualification__footer .btn, .contact__btn", { origin: "right" });
+
+
+
+
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+const mobileMenuLinks = mobileMenuPanel.querySelectorAll('a');
+
+const setMobileMenuState = (isOpen) => {
+    mobileMenuPanel.classList.toggle('hidden', !isOpen);
+    mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+    const icon = mobileMenuButton.querySelector('.material-symbols-outlined');
+    icon.textContent = isOpen ? 'close' : 'menu';
+};
+
+mobileMenuButton.addEventListener('click', () => {
+    const isOpen = !mobileMenuPanel.classList.contains('hidden');
+    setMobileMenuState(!isOpen);
+});
+
+mobileMenuLinks.forEach((link) => {
+    link.addEventListener('click', () => setMobileMenuState(false));
+});
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) {
+        setMobileMenuState(false);
+    }
+});
+
+document.getElementById('current-year').textContent = new Date().getFullYear();
+
+// Generate GUID for filename
+function generateGUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = Math.random() * 16 | 0,
+            v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+// Handle PDF download with application/octet-stream
+const downloadCvBtn = document.getElementById('download-cv-btn');
+if (downloadCvBtn) {
+    downloadCvBtn.addEventListener('click', async () => {
+        try {
+            const response = await fetch('assets/files/full-cv.pdf');
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(new Blob([blob], { type: 'application/octet-stream' }));
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = 'full-cv.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl);
+        } catch (error) {
+            console.error('Error downloading file:', error);
+        }
+    });
+}

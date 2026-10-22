@@ -1,0 +1,62 @@
+﻿@model WebApplication.Controllers.HomeController.GroupIndexModel;
+@inject LanguageService language;
+@{
+    var ValueA = Model.CollectionA.Rows[0];
+    ViewData["Title"] = (language.Getkey("language_short") == "es" ? ValueA["ReportEsName"] : ValueA["ReportEnName"]);
+
+    var WorkspaceId = (language.Getkey("language_short") == "es" ? ValueA["GroupId_Sp"] : ValueA["GroupId_En"]);
+    var ReportId = (language.Getkey("language_short") == "es" ? ValueA["ReportId_Sp"] : ValueA["ReportId_En"]);
+}
+
+<div class="text-center">
+    <div id="dashboardContainer" style="width: 100%; height: calc(100vh - 100px); background-color: #ffffff; position: relative;">
+    </div>
+</div>
+
+
+@section ScriptsHome
+{
+    
+    <script src="https://microsoft.github.io//PowerBI-JavaScript/demo/node_modules/jquery/dist/jquery.js"></script>
+    <script src="https://microsoft.github.io//PowerBI-JavaScript/demo/node_modules/powerbi-client/dist/powerbi.js"></script>
+
+    <script type="text/javascript">
+
+        let workspaceId = "@WorkspaceId";
+        let reportId = "@ReportId";
+
+        $.ajax({
+            beforeSend: function () {
+                //$("#pbiLoadingPlaceholder").css({ "display": "block" });
+            },
+            url: "/Report/GetAccessToken?workspaceId=" + workspaceId + "&reportId=" + reportId,
+            type: "Post",
+            dataType: "json",
+            success: function (resp) {
+                const resp_details = JSON.parse(resp);
+                
+                var Token = resp_details.AccessToken.AccessToken;
+                var EmbededURL = resp_details.AccessToken.EmbedUrl;
+                var ReportId = resp_details.AccessToken.ReportId;
+                var models = window['powerbi-client'].models;
+                var config = {
+                    type: 'report',
+                    tokenType: models.TokenType.Embed,
+                    accessToken: Token,
+                    embedUrl: EmbededURL,
+                    id: ReportId,
+                    settings: {
+                        filterPaneEnabled: false,
+                        navContentPaneEnabled: false
+                    }
+                };
+                var $dashboardContainer = $('#dashboardContainer');
+
+                var dashboard = powerbi.embed($dashboardContainer.get(0), config);
+
+            }
+        });
+
+    </script>
+
+}

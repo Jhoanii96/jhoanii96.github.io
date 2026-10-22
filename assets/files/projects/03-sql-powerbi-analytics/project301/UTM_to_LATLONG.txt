@@ -1,0 +1,64 @@
+/****** Object:  UserDefinedFunction [dbo].[UTM_to_LATLONG]    Script Date: 27/03/2024 17:30:54 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE FUNCTION [dbo].[UTM_to_LATLONG](@utmx float, @utmy float, @utmzone nvarchar(max))
+RETURNS @latlon TABLE (
+latitude float,
+longitude float
+) AS
+BEGIN
+set @utmx=@utmx-2000000
+declare @latitude float
+declare @longitude float
+declare @isNorthHemisphere integer = 0;
+if right(@utmzone,1)='N' set @isNorthHemisphere=1
+declare @diflat float = -(29.355634 - 29.347693)
+declare @diflon float = -(69.940029 - 69.939362)
+declare @zone float = cast(rtrim(ltrim(left(@utmzone,len(@utmzone)-1))) as float)
+declare @c_sa float = 6378137.0
+declare @c_sb float = 6356752.314245
+declare @e2 float = power((@c_sa*@c_sa - @c_sb*@c_sb),(0.5)) / @c_sb
+declare @e2cuadrada float = @e2*@e2
+declare @c float = @c_sa*@c_sa / @c_sb
+declare @x float = @utmx - 500000
+declare @y float=@utmy - 10000000
+if @isNorthHemisphere=1 set @y=@utmy
+
+declare @s float = ((@zone * 6.0) - 183.0)
+declare @lat float = @y / (@c_sa * 0.9996)
+declare @v float = (@c / Power(1 + (@e2cuadrada * Power(Cos(@lat), 2)), 0.5)) * 0.9996
+declare @a float = @x / @v
+declare @a1 float = Sin(2 * @lat)
+declare @a2 float = @a1 * Cos(@lat)*Cos(@lat)
+declare @j2 float = @lat + (@a1 / 2.0)
+declare @j4 float = ((3 * @j2) + @a2) / 4.0
+declare @j6 float = ((5 * @j4) + (@a2 * (Cos(@lat)*Cos(@lat)))) / 3.0
+declare @alfa float = (3.0 / 4.0) * @e2cuadrada
+declare @beta float = (5.0 / 3.0) * @alfa*@alfa
+declare @gama float = (35.0 / 27.0) * @alfa*@alfa*@alfa
+declare @bm float = 0.9996 * @c * (@lat - @alfa * @j2 + @beta * @j4 - @gama * @j6)
+declare @b float = (@y - @bm) / @v
+declare @epsi float = ((@e2cuadrada * (@a*@a)) / 2.0) * ((Cos(@lat)*Cos(@lat)))
+declare @eps float = @a * (1 - (@epsi / 3.0))
+declare @nab float = (@b * (1 - @epsi)) + @lat
+declare @senoheps float = (Exp(@eps) - Exp(-1*@eps)) / 2.0
+declare @delt float = Atan(@senoheps / (Cos(@nab)))
+declare @tao float = Atan(Cos(@delt) * Tan(@nab))
+set @longitude = ((@delt * (180.0 / 3.14159265358979323846)) + @s) + @diflon
+set @latitude = ((@lat + (1 + @e2cuadrada * (Cos(@lat)*Cos(@lat)) - (3.0 / 2.0) * @e2cuadrada * Sin(@lat) * Cos(@lat) * (@tao - @lat)) * (@tao - @lat)) * (180.0 / 3.14159265358979323846)) + @diflat
+
+
+INSERT INTO @latlon VALUES (
+@latitude,
+@longitude
+);
+RETURN
+END
+GO
+
+
