@@ -1,0 +1,527 @@
+        <section class="min-h-screen scroll-mt-[120px] flex flex-col justify-center" id="projects">
+            <h2
+                class="font-headline-lg text-headline-lg text-pure-white mb-4 flex items-center gap-4 justify-end">
+                Data Engineering Projects
+                <span class="w-12 h-1 bg-gradient-to-l from-secondary to-transparent rounded-full block"></span>
+            </h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl ml-auto mb-stack-md text-right">
+                A curated collection of data platforms, ingestion workflows, analytics components and AI-enabled
+                automation. Each case study includes the available architecture, implementation notes, evidence and
+                technical artifacts.
+            </p>
+            <div class="max-w-container-max mx-auto w-full space-y-stack-lg">
+                <div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <h3 class="font-headline-md text-headline-md text-pure-white">Databricks and Azure Data Factory</h3>
+                        <span class="badge-tech px-3 py-1 rounded-full font-label-caps text-label-caps uppercase">Lead
+                            focus</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">SQL Parallel Ingestion Platform</h4>
+                            <img src="assets/files/projects/01-databricks-adf/project101/project101.png" alt="SQL Parallel Ingestion Pipeline with Azure Data Factory and Databricks" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">Parallel Azure Data Factory ingestion orchestrating dynamic multi-table extractions to Parquet and Delta Lake via reusable Databricks notebooks.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">ADF</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Databricks</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Delta Lake</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Parquet</span>
+                            </div>
+                            <button type="button" data-project="101" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Excel to Delta Lake Ingestion</h4>
+                            <img src="assets/files/projects/01-databricks-adf/project102/project102.png" alt="Metadata-driven SharePoint Excel to Delta Lake ingestion pipeline" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A metadata-driven Azure Data Factory workflow that stages SharePoint Excel files in Blob Storage and invokes Databricks for full or incremental Delta Lake ingestion.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">ADF</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">SharePoint</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Blob Storage</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Databricks</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Delta Lake</span>
+                            </div>
+                            <button type="button" data-project="102" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Databricks Apps: Streamlit with AI Genie</h4>
+                            <img src="assets/files/projects/01-databricks-adf/project103/project103.png" alt="Databricks App deployment for Streamlit analytics and AI Genie" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A Databricks App combining filtered parallel-coordinate analytics, five operational cases and an AI Genie chatbot.</p>
+                            <div class="flex flex-wrap gap-2 mb-4"><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Databricks Apps</span><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Streamlit</span><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">AI Genie</span></div>
+                            <button type="button" data-project="103" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">SharePoint Lists to Azure SQL with ADF Deployment</h4>
+                            <img src="assets/files/projects/01-databricks-adf/project105/SharePoint_Cummins.png" alt="Azure Data Factory SharePoint folders and lists to Azure SQL pipeline" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">An API-driven Azure Data Factory workflow discovers SharePoint folders, accumulates their lists, loads each table into Azure SQL and promotes the validated pipeline through Azure DevOps.</p>
+                            <div class="flex flex-wrap gap-2 mb-4"><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">ADF</span><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">SharePoint</span><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Azure SQL</span><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">DevOps</span></div>
+                            <button type="button" data-project="105" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Automated ADF Path Migration</h4>
+                            <img src="assets/files/projects/01-databricks-adf/project106/activity-path.png" alt="Azure Data Factory pipeline activity inputs" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">PowerShell automation that updates inputs across Azure Data Factory pipelines, including nested activities, and prepares the modified definitions for controlled deployment.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">ADF REST API</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">PowerShell</span>
+                            </div>
+                            <button type="button" data-project="106" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Automated Azure Data Factory CI/CD Deployment</h4>
+                            <img src="assets/files/projects/01-databricks-adf/project107/DevOps_CICD.png" alt="Azure DevOps CI/CD workflow for Azure Data Factory deployment" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A repeatable Azure DevOps release workflow that promotes Azure Data Factory changes across environments while managing triggers, dependencies, resource cleanup and deployment evidence.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Azure DevOps</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">ADF CI/CD</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">PowerShell</span>
+                            </div>
+                            <button type="button" data-project="107" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">FastField Data Ingestion and Table Automation</h4>
+                            <img src="assets/files/projects/01-databricks-adf/project108/FastField_Portal.png" alt="FastField Forms historical data configuration and database connection" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">End-to-end ingestion solution for FastField Forms that retrieves historical submissions through an Azure Function, orchestrates multiple forms with Azure Data Factory and generates relational tables for future incremental loads and reporting.</p>
+                            <div class="flex flex-wrap gap-2 mb-4"><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">FastField API</span><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Azure Functions</span><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">ADF</span><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Azure SQL</span></div>
+                            <button type="button" data-project="108" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Databricks Cluster Dependencies</h4>
+                            <img src="assets/files/projects/01-databricks-adf/project111/upload_drivers.png" alt="Databricks Volume upload for cluster libraries and drivers" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A reliable Databricks pattern for installing Python libraries and ODBC drivers through Unity Catalog Volumes and cluster init scripts. Files are uploaded to a governed Volume and automatically installed when the cluster starts, providing a repeatable and centralized dependency setup.</p>
+                            <div class="flex flex-wrap gap-2 mb-4"><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Databricks</span><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Unity Catalog Volumes</span><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Init Scripts</span><span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">PyODBC</span></div>
+                            <button type="button" data-project="111" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <h3 class="font-headline-md text-headline-md text-pure-white">Lakehouse Engineer and Copilot Studio</h3>
+                        <span class="badge-tech px-3 py-1 rounded-full font-label-caps text-label-caps uppercase">Lead focus</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Microsoft Fabric Lakehouse Sensor Heatmap</h4>
+                            <img src="assets/files/projects/02-copilot-power-fabric/project204/heatmap-sensors-data-visualization-and-analysis.png" alt="Microsoft Fabric Lakehouse sensor data heatmap" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A Microsoft Fabric Lakehouse workflow that uses a OneLake shortcut to connect Blob Storage Delta tables and a notebook to create a heatmap for sensor data analysis.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Microsoft Fabric</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Lakehouse</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">OneLake Shortcut</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Delta Lake</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Fabric Notebook</span>
+                            </div>
+                            <button type="button" data-project="204" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Copilot Studio Image Agent with Azure AI Foundry</h4>
+                            <img src="assets/files/projects/02-copilot-power-fabric/project201/copilot-studio-chat.png" alt="Copilot Studio image-generation agent integrated with Azure AI Foundry, Power Automate and Microsoft Teams" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">Conversational image-generation agent built in Microsoft Copilot Studio. It captures the user's request, invokes an Azure AI Foundry API, stores the Base64 image in Blob Storage through Power Automate and returns the generated image in Copilot Studio and Microsoft Teams.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Copilot Studio</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Azure AI Foundry</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Power Automate</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Blob Storage</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Microsoft Teams</span>
+                            </div>
+                            <button type="button" data-project="201" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">AI-Powered Excel Report Automation</h4>
+                            <img src="assets/files/projects/02-copilot-power-fabric/project202/power-automate-portada.png" alt="Power Automate workflow that extracts Excel data, classifies files with Azure AI Foundry and generates Word reports" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">End-to-end automation that detects Excel uploads in SharePoint, extracts worksheet data with Office Scripts, classifies the file with Azure AI Foundry and generates a Word report through an Azure Function.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Copilot Studio</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Azure AI Foundry</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Power Automate</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">SharePoint</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Azure Function</span>
+                            </div>
+                            <button type="button" data-project="202" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Microsoft Fabric Workspace Identity and OneLake Shortcuts</h4>
+                            <img src="assets/files/projects/02-copilot-power-fabric/project203/fabric-tenant-settings.png" alt="Microsoft Fabric tenant setting enabling read-only admin APIs for the PowerBIAPI security group" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">Workspace Identity and OneLake Shortcuts configuration in Microsoft Fabric, with controlled service-principal access to read-only admin APIs through the PowerBIAPI security group.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Microsoft Fabric</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">OneLake</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Azure AD</span>
+                            </div>
+                            <button type="button" data-project="203" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+
+                        
+                        
+
+                        
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-4 mb-6"><h3 class="font-headline-md text-headline-md text-pure-white">SQL, PowerBI and Analytics</h3><span class="badge-tech px-3 py-1 rounded-full font-label-caps text-label-caps uppercase">Analytics</span></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Mining Fleet Cycle Mapping with SQL Server, R and Power BI</h4>
+                            <img src="assets/files/projects/03-sql-powerbi-analytics/project301/result-powerbi.png" alt="Mining fleet cycle mapping custom visual in Power BI" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">An end-to-end mining cycle mapping workflow: SQL Server converts UTM coordinates, R and Leaflet render haul routes, and the compiled custom visual is published through Power BI.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">SQL Server</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">R</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Leaflet</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Power BI</span>
+                            </div>
+                            <button type="button" data-project="301" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Power BI Embedded Reporting Application</h4>
+                            <img src="assets/files/projects/03-sql-powerbi-analytics/project302/app-main-daily-report.png" alt="ASP.NET Core application displaying an embedded Power BI daily report" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">An ASP.NET Core Razor Pages application with Microsoft Azure authentication and embedded Power BI reporting for secure operational data access.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">ASP.NET Core</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Razor Pages</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Azure AD</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Power BI Embedded</span>
+                            </div>
+                            <button type="button" data-project="302" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Interactive Granulometric for Primary Crusher Analysis</h4>
+                            <img src="assets/files/projects/03-sql-powerbi-analytics/project303/malla-granulometricos.png" alt="Interactive Power BI granulometric profiles for primary crusher analysis" class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">An interactive Power BI custom visual built with R and ggplotly to compare cumulative particle-size distributions by blast source against a target granulometric curve.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">R</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Power BI</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Custom Visual</span>
+                            </div>
+                            <button type="button" data-project="303" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Interactive Parallel Coordinates for Flotation Trajectories</h4>
+                            <img src="assets/files/projects/03-sql-powerbi-analytics/project304/Interactive Parallel Coordinates 1.png"
+                                alt="Complete interactive parallel coordinates visual for flotation process trajectories in Power BI"
+                                class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">An R-built parallel coordinates custom visual compiled with pbiviz for Power BI Desktop and Power BI Service, revealing end-to-end relationships across ore feed, grinding and flotation operating variables.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">R</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Power BI</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">pbiviz</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Mining Analytics</span>
+                            </div>
+                            <button type="button" data-project="304" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Leaflet Heatmap for GPS Brake Sensor Intensity Analysis</h4>
+                            <img src="assets/files/projects/03-sql-powerbi-analytics/project305/powerbi-leaflet-heatmap.png"
+                                alt="Interactive Leaflet heatmap custom visual in Power BI showing GPS brake sensor intensity ranges"
+                                class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">Interactive Leaflet heatmap custom visual for Power BI that maps GPS brake-sensor readings, highlights intensity ranges along haul routes and provides a custom legend for identifying anomalous operating conditions.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">R</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Leaflet</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Power BI</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">pbiviz</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Heatmap</span>
+                            </div>
+                            <button type="button" data-project="305" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Brake Sensor Correlation and Risk Analysis</h4>
+                            <img src="assets/files/projects/03-sql-powerbi-analytics/project306/powerbi-heatmap-spearman.png"
+                                alt="Power BI brake sensor correlation heatmap and risk analysis visual"
+                                class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                            <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">Interactive Power BI custom visual for analyzing brake sensor relationships, abnormality levels and high-risk operating patterns through correlation matrices, density scatter plots and k-means clusters.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">R</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Power BI</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">pbiviz</span>
+                                <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Correlation Analysis</span>
+                            </div>
+                            <button type="button" data-project="306" class="project-details-btn w-full py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View case study</button>
+                        </article>
+                        <article
+                            class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col items-center justify-center text-center min-h-[280px] border border-secondary/30">
+                            <div
+                                class="w-14 h-14 rounded-full bg-secondary/20 flex items-center justify-center border border-secondary/40 mb-5">
+                                <span class="material-symbols-outlined text-secondary text-3xl"
+                                    aria-hidden="true">insights</span>
+                            </div>
+                            <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Many More Power BI Custom Visuals</h4>
+                            <p class="font-body-md text-[14px] text-on-surface-variant">Many more analytics and
+                                visualization projects have been created with Power BI.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <dialog id="project-dialog" class="w-[min(92vw,900px)] max-h-[90vh] overflow-y-auto rounded-2xl border border-glass-border bg-surface-container-lowest p-0 text-pure-white backdrop:bg-black/70">
+            <div class="p-6 md:p-8">
+                <div class="flex items-start justify-between gap-6 mb-6">
+                    <div><p id="project-dialog-category" class="font-label-caps text-label-caps text-electric-cyan uppercase mb-2"></p><h3 id="project-dialog-title" class="font-headline-lg text-headline-lg"></h3></div>
+                    <button type="button" id="project-dialog-close" class="w-10 h-10 shrink-0 rounded-full border border-glass-border hover:bg-white/10" aria-label="Close project details"><span class="material-symbols-outlined">close</span></button>
+                </div>
+                <p class="mb-5 text-sm leading-relaxed text-on-surface-variant">Review the architecture, implementation notes and supporting technical evidence for this project.</p>
+                <div id="project-dialog-content" class="grid gap-5 text-on-surface-variant"></div>
+                <div id="project-dialog-links" class="flex flex-wrap gap-3 mt-7"></div>
+            </div>
+        </dialog>
+        <section>
+            <!-- Category A: AI-Powered -->
+            <div class="mb-stack-lg">
+                <div class="flex items-center gap-4 mb-6">
+                    <h3 class="font-headline-md text-headline-md text-pure-white">AI-Powered Innovations</h3>
+                    <!-- <span
+                        class="badge-ai px-3 py-1 rounded-full font-label-caps text-label-caps uppercase animate-pulse">Neon
+                        Badge</span> -->
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- AI Project 1 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Pulse Health Hospital</h4>
+                        <img src="assets/img/AI Projects/project6.png" alt="Aplicación Web - Pulse Health Hospital"
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A clean,
+                            reassuring health management dashboard displaying real-time vitals, appointment
+                            scheduling, lab results, and active prescription tracking.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Tailwind
+                                CSS</span>
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Material
+                                Icons</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">JavaScript</span>
+                        </div>
+                        <a href="https://pulsehealth-hospital.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">
+                            Explore Project</a>
+                    </div>
+                    <!-- AI Project 2 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Atheneaum Library</h4>
+                        <img src="assets/img/AI Projects/project7.png" alt="Aplicación Web - Gestión de Libros"
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A modern library
+                            management system for tracking books, managing reservations, and providing a
+                            user-friendly interface for patrons.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Tailwind
+                                CSS</span>
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Material
+                                Icons</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">JavaScript</span>
+                        </div>
+                        <a href="https://atheneaum-library.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">
+                            Explore Project</a>
+                    </div>
+                    <!-- AI Project 3 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Laura Cousine</h4>
+                        <img src="assets/img/AI Projects/project8.png" alt="Aplicación Web - Laura Cousine"
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A vibrant menu
+                            page with high-quality dish photography, dietary badges, interactive category tabs, and
+                            a live ordering cart sidebar.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Tailwind
+                                CSS</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">JavaScript</span>
+                        </div>
+                        <a href="https://laura-cousine.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">
+                            Explore Project</a>
+                    </div>
+                    <!-- AI Project 4 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Soniq Music</h4>
+                        <img src="assets/img/AI Projects/project9.png" alt="Aplicación Web - Soniq Music"
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A modern music
+                            streaming platform with a focus on discovering new artists and creating personalized
+                            playlists.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Tailwind
+                                CSS</span>
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Material
+                                Icons</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">JavaScript</span>
+                        </div>
+                        <a href="https://soniq-music-streaming.vercel.app/" target="_blank"
+                            rel="noopener noreferrer"
+                            class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">
+                            Explore Project</a>
+                    </div>
+                    <!-- AI Project 5 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Luminary Streaming</h4>
+                        <img src="assets/img/AI Projects/project10.png" alt="Aplicación Web - Luminary Streaming"
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A streaming
+                            service for discovering and enjoying a wide range of content, with a focus on user
+                            experience and personalized recommendations.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Tailwind
+                                CSS</span>
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Material
+                                Icons</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">JavaScript</span>
+                        </div>
+                        <a href="https://luminary-streaming.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">
+                            Explore Project</a>
+                    </div>
+                    <!-- AI Project 6 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Apex Portfolio</h4>
+                        <img src="assets/img/AI Projects/project11.png" alt="Aplicación Web - Apex Portfolio"
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A modern
+                            portfolio website for showcasing a designer's work, skills, and experience.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Tailwind
+                                CSS</span>
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Material
+                                Icons</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">JavaScript</span>
+                        </div>
+                        <a href="https://apex-porfolio.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">
+                            Explore Project</a>
+                    </div>
+                    <!-- AI Project 7 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Wandr Travel</h4>
+                        <img src="assets/img/AI Projects/project12.png" alt="Aplicación Web - Wandr Travel"
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">A travel platform
+                            for discovering and booking unique experiences around the world.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Tailwind
+                                CSS</span>
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Material
+                                Icons</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">JavaScript</span>
+                        </div>
+                        <a href="https://wandr-travel.vercel.app/" target="_blank" rel="noopener noreferrer"
+                            class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">
+                            Explore Project</a>
+                    </div>
+                    <div
+                        class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col items-center justify-center text-center min-h-[280px] border border-primary/30">
+                        <div
+                            class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center border border-primary/40 mb-5">
+                            <span class="material-symbols-outlined text-primary text-3xl"
+                                aria-hidden="true">auto_awesome</span>
+                        </div>
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Many More AI Innovations</h4>
+                        <p class="font-body-md text-[14px] text-on-surface-variant">Many more AI-powered
+                            experiments and digital experiences have been built.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Category B: Handcrafted -->
+            <div>
+                <div class="flex items-center gap-4 mb-6">
+                    <h3 class="font-headline-md text-headline-md text-pure-white">Handcrafted Platforms</h3>
+                    <span class="badge-tech px-3 py-1 rounded-full font-label-caps text-label-caps uppercase">System
+                        Architecture</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Proj 5 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Intelligent Flow-Based Web
+                            Chatbot</h4>
+                        <img src="assets/img/Handcrafted Projects/project5.jpg"
+                            alt="A futuristic, glowing visualization of a neural network communicating with a web interface, depicted in deep space purples, electric cyans, and dark obsidian. The visualization should look like a high-end UI dashboard showcasing AI chatbot metrics with floating glass panels and particle effects, lit by intense, soft holographic light. Professional, highly polished glassmorphic aesthetic."
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">An advanced
+                            conversational interface utilizing localized LLMs to guide users through complex
+                            workflows.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">AI /
+                                LLM</span>
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Web
+                                Architecture</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">Automation</span>
+                        </div>
+                    </div>
+                    <!-- Proj 1 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">CIISXX Platform</h4>
+                        <img src="assets/img/Handcrafted Projects/project3.jpg" alt="Aplicación Web - Diseño y Gestión de Asistentes"
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">Comprehensive
+                            enterprise
+                            resource planning system with real-time analytics.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">HTML5</span>
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">CSS3</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">JavaScript</span>
+                        </div>
+                        <a href="https://web-ciisxx.vercel.app/" target="_blank"
+                            class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">
+                            Explore Project</a>
+                    </div>
+                    <!-- Proj 2 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">USI Incident System</h4>
+                        <img src="assets/img/Handcrafted Projects/project1.jpg" alt="Aplicación Web - Diseño y Gestión de Asistentes"
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">Automated
+                            ticketing and
+                            resolution tracking for large-scale IT deployments.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">HTML5</span>
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">CSS3</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">JavaScript</span>
+                        </div>
+                        <a href="https://web-incidencias.vercel.app/" target="_blank"
+                            class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">
+                            Explore Project</a>
+                    </div>
+                    <!-- Proj 3 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">WiFi Captive Portal</h4>
+                        <img src="assets/img/Handcrafted Projects/project2.jpg" alt="Aplicación Web - Diseño y Gestión de Asistentes"
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">Customized
+                            authentication
+                            gateway with localized branding and CRM integration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">HTML5</span>
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">CSS3</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">JavaScript</span>
+                        </div>
+                        <a href="https://wifi-unjbg.vercel.app/" target="_blank"
+                            class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">
+                            Explore Project</a>
+                    </div>
+                    <!-- Proj 4 -->
+                    <div class="glass-panel rounded-xl p-6 card-hover-effect flex flex-col">
+                        <h4 class="font-headline-md text-[20px] text-pure-white mb-2">Claro Web App</h4>
+                        <img src="assets/img/Handcrafted Projects/project4.jpg" alt="Aplicación Web - Diseño y Gestión de Asistentes"
+                            class="w-full h-40 object-cover rounded-lg mb-4 border border-glass-border">
+                        <p class="font-body-md text-[14px] text-on-surface-variant mb-4 flex-grow">High-performance
+                            telecommunications portal for customer account management.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">HTML5</span>
+                            <span class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">CSS3</span>
+                            <span
+                                class="badge-tech px-3 py-1 rounded-full font-label-md text-[12px]">JavaScript</span>
+                        </div>
+                        <a href="https://web-clon-claro.vercel.app/" target="_blank"
+                            class="w-full block text-center py-2 rounded-full border border-glass-border hover:bg-white/5 transition-colors font-label-md text-label-md text-pure-white">View
+                            Explore Project</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>

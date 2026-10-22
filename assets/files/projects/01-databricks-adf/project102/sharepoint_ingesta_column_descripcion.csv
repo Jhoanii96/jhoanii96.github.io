@@ -1,0 +1,32 @@
+Column,Purpose
+Id,Unique identifier for the configuration row
+SharepointTenantName,Azure AD Tenant ID secret name in Key Vault
+SharepointClientName,Service Principal App ID secret name
+SharepointClientSecretName,Service Principal Secret name
+SharepointDomainName,SharePoint domain (e.g., gointegreat)
+SharepointSite,SharePoint site name (e.g., Intytest)
+SharepointFolderPath,Folder path within the SharePoint document library
+ServerSource,Source system identifier
+BlobStagingContainer,ADLS Gen2 container for staging (e.g., prelanding)
+BlobStagingPath,Path template with placeholders: {yyyy}/{MM}/{dd}/{HH}
+FileName,Source Excel file name
+BlobCuratedContainer,Target container for processed data
+BlobCuratedPath,Target path for Delta tables
+TableName,Target Delta table name
+SheetName,Excel worksheet name to read
+IndexColumns,Columns to use as index (for vertical data)
+CustomColumnNames,Optional: Override header row with custom names
+DataRange,Specific cell range to read (e.g., A1:Z1000)
+ReportDate,Static report date if applicable
+ForecastName,Forecast identifier
+ColumnsToSkip,Comma-separated list of column indices to skip
+RowsToSkip,Number of header rows to skip
+IsHorizontal,Boolean: true if data is horizontally oriented
+MergeNHeaders,Number of header rows to merge (for multi-level headers)
+IngestionGroup,Grouping ID to batch process related files together
+IsIncremental,Boolean: false for Full Copy, true for Incremental
+IdColumns,Primary key columns for incremental merge
+WatermarkColumn,Column name for change tracking (incremental)
+WatermarkLookBack,Look-back period for watermark calculation
+WatermarkVal,Initial watermark value
+DeletedAt,Soft delete timestamp (NULL = active record)

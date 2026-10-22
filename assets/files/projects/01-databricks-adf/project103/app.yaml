@@ -1,0 +1,14 @@
+command: ["streamlit", "run", "app.py"]
+env:
+  - name: 'DATABRICKS_WAREHOUSE_ID'
+    value: '********************'
+  - name: 'GENIE_SPACE_ID'
+    value: '**********************************'
+  - name: 'HTTP_PATH_METRIC'
+    value: '/sql/1.0/warehouses/****************'
+  - name: 'TABLE_METRIC_NAME'
+    value: 'chapada_gold_dev.processing_recovery.fact_metric_hourly'
+  - name: 'HTTP_PATH_KPI_DICT'
+    value: '/sql/1.0/warehouses/****************'
+  - name: 'TABLE_KPI_NAME'
+    value: 'chapada_gold_dev.processing_recovery.ref_kpi_dict_master'

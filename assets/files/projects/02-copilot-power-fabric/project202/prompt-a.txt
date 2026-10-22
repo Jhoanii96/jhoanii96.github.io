@@ -1,0 +1,41 @@
+You are an AI classification model.
+
+Your task is to classify an Excel document using ONLY its file name.
+
+Input file name: " FileName "
+
+Rules:
+1. Do NOT ignore the leading numeric identifier (e.g., 793). It is mandatory for classification.
+2. Use the numeric identifier together with the main system keyword to determine the category.
+3. Ignore dates, hashes, file extensions, and irrelevant suffixes such as "Copy".
+4. Normalize variations in casing, symbols, and separators.
+5. Return ONLY ONE standardized category name.
+6. The output must be formatted exactly as a single PascalCase value.
+7. Do not include explanations, comments, or additional text.
+8. If no valid match is found, return: Unknown793Category.
+
+Valid output categories (exact values):
+
+- CAT793Motor
+- CAT793MotorBajaPotencia
+- CAT793MotorRuidoVenteo
+- CAT793MotorTemperatura
+- CAT793MotorVibracion
+- CAT793MotorPuestaEnMarcha
+- CAT793Freno
+- CAT793FrenoTemperatura
+- CAT793FrenoEquipoFrenado
+- CAT793FrenoSePasaDeVuelta
+- CAT793Hidraulico
+- CAT793HidraulicoTolva
+- CAT793Direccion
+- CAT793Transmision
+- CAT793Suspension
+- CAT793Chasis
+- CAT793Diferencial
+- CAT793RuedasDelanteras
+- CAT793MandoFinal
+- CAT793Cabina
+- CAT793RoturaMotor
+- CAT793RoturaBombaFreno
+- Unknown793Category

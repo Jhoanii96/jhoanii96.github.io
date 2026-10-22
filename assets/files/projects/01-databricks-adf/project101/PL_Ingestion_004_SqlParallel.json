@@ -1,0 +1,1790 @@
+{
+	"name": "PL_Ingestion_004_SqlParallel",
+	"properties": {
+		"activities": [
+			{
+				"name": "Read Configuration",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT * FROM @{pipeline().parameters.WatermarkSchemaname}.@{pipeline().parameters.WatermarkTablename} \nWHERE [IngestionGroup] = '@{pipeline().parameters.IngestionGroup}' \nAND [DeletedSetDate] IS NULL",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "SQL_AzureSqlServer",
+						"type": "DatasetReference",
+						"parameters": {
+							"Servername": {
+								"value": "@pipeline().globalParameters.WatermarkServername",
+								"type": "Expression"
+							},
+							"Database": {
+								"value": "@pipeline().globalParameters.WatermarkDatabase",
+								"type": "Expression"
+							},
+							"Schemaname": {
+								"value": "@pipeline().parameters.WatermarkSchemaname",
+								"type": "Expression"
+							},
+							"Tablename": {
+								"value": "@pipeline().parameters.WatermarkTablename",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Configutarion Items",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set Datetime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set Site",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Read Configuration').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 30,
+					"activities": [
+						{
+							"name": "Sites OnPrem Authentication",
+							"type": "Switch",
+							"dependsOn": [
+								{
+									"activity": "Sites Azure Authentication",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"on": {
+									"value": "@concat(\n\t\n\tvariables('Site'), item().ServerInfrastructure, \n\tif(or(equals(item().SecretAuthKeyName, null), equals(item().UserSourceName, null)), \n\t\t'User', \n\t\tif(equals(item().SecretServerSourceName, null), 'User', 'AD')\n\t)\n\t\n)",
+									"type": "Expression"
+								},
+								"cases": [
+									{
+										"value": "CandelariaOnPremAD",
+										"activities": [
+											{
+												"name": "SQL To Parquet Candelaria AD",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Script Columns Candelaria AD",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "SqlServerSource",
+														"sqlReaderQuery": {
+															"value": "SELECT @{activity('Script Columns Candelaria AD').output.resultSets[0].rows[0].Result} FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat(item().IncrementalColumn, ' > ''', item().WatermarkVal, ''''))}",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_CAN_SQL_SourceSystem_AD",
+														"type": "DatasetReference",
+														"parameters": {
+															"SecretServerName": {
+																"value": "@item().SecretServerSourceName",
+																"type": "Expression"
+															},
+															"SchemaName": {
+																"value": "@item().SchemaSourceName",
+																"type": "Expression"
+															},
+															"TableName": {
+																"value": "@item().TableSourceName",
+																"type": "Expression"
+															},
+															"UserAuthName": {
+																"value": "@item().UserSourceName",
+																"type": "Expression"
+															},
+															"SecretAuthPassword": {
+																"value": "@item().SecretAuthKeyName",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "RawParquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": {
+																"value": "@{item().TableSourceName}.parquet",
+																"type": "Expression"
+															},
+															"Container": "raw",
+															"Directory": {
+																"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											},
+											{
+												"name": "Script Columns Candelaria AD",
+												"type": "Script",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"linkedServiceName": {
+													"referenceName": "CAN_SQL_SourceSystem_AD",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"SecretServerName": {
+															"value": "@item().SecretServerSourceName",
+															"type": "Expression"
+														},
+														"UserAuthName": {
+															"value": "@item().UserSourceName",
+															"type": "Expression"
+														},
+														"SecretAuthPassword": {
+															"value": "@item().SecretAuthKeyName",
+															"type": "Expression"
+														}
+													}
+												},
+												"typeProperties": {
+													"scripts": [
+														{
+															"type": "Query",
+															"text": {
+																"value": "DECLARE @columns VARCHAR(MAX) \nSELECT @columns = COALESCE(@columns + ', ', '') + ('[' + column_name + ']' + ' AS ' + '[' + REPLACE(REPLACE(REPLACE(LTRIM(RTRIM(REPLACE(column_name, '-', '_'))), '(', '_'), ')', ''), ' ', '_') + ']')\nFROM   INFORMATION_SCHEMA.COLUMNS\nWHERE  column_name LIKE '%'\n      AND TABLE_NAME = @{concat('''', item().TableSourceName, '''')}  \n\tAND TABLE_SCHEMA = @{concat('''', item().SchemaSourceName, '''')};\n\nSELECT (@columns) AS Result\n",
+																"type": "Expression"
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									{
+										"value": "CandelariaOnPremUser",
+										"activities": [
+											{
+												"name": "SQL To Parquet Candelaria User",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Script Columns Candelaria User",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "SqlServerSource",
+														"sqlReaderQuery": {
+															"value": "SELECT @{activity('Script Columns Candelaria User').output.resultSets[0].rows[0].Result} FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat(item().IncrementalColumn, ' > ''', item().WatermarkVal, ''''))}",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_CAN_SQL_SourceSystem_User",
+														"type": "DatasetReference",
+														"parameters": {
+															"SecretServerName": {
+																"value": "@item().SecretServerSourceName",
+																"type": "Expression"
+															},
+															"SchemaName": {
+																"value": "@item().SchemaSourceName",
+																"type": "Expression"
+															},
+															"TableName": {
+																"value": "@item().TableSourceName",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "RawParquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": {
+																"value": "@{item().TableSourceName}.parquet",
+																"type": "Expression"
+															},
+															"Container": "raw",
+															"Directory": {
+																"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											},
+											{
+												"name": "Script Columns Candelaria User",
+												"type": "Script",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"linkedServiceName": {
+													"referenceName": "CAN_SQL_SourceSystem_User",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"SecretServerName": {
+															"value": "@item().SecretServerSourceName",
+															"type": "Expression"
+														}
+													}
+												},
+												"typeProperties": {
+													"scripts": [
+														{
+															"type": "Query",
+															"text": {
+																"value": "DECLARE @columns VARCHAR(MAX) \nSELECT @columns = COALESCE(@columns + ', ', '') + ('[' + column_name + ']' + ' AS ' + '[' + REPLACE(REPLACE(REPLACE(LTRIM(RTRIM(REPLACE(column_name, '-', '_'))), '(', '_'), ')', ''), ' ', '_') + ']')\nFROM   INFORMATION_SCHEMA.COLUMNS\nWHERE  column_name LIKE '%'\n      AND TABLE_NAME = @{concat('''', item().TableSourceName, '''')}  \n\tAND TABLE_SCHEMA = @{concat('''', item().SchemaSourceName, '''')};\n\nSELECT (@columns) AS Result\n",
+																"type": "Expression"
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									{
+										"value": "ChapadaOnPremAD",
+										"activities": [
+											{
+												"name": "SQL To Parquet Chapada AD",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Script Columns Chapada AD",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "SqlServerSource",
+														"sqlReaderQuery": {
+															"value": "SELECT @{activity('Script Columns Chapada AD').output.resultSets[0].rows[0].Result} FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat(item().IncrementalColumn, ' > ''', item().WatermarkVal, ''''))}",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_CHA_SQL_SourceSystem_AD",
+														"type": "DatasetReference",
+														"parameters": {
+															"SecretServerName": {
+																"value": "@item().SecretServerSourceName",
+																"type": "Expression"
+															},
+															"SchemaName": {
+																"value": "@item().SchemaSourceName",
+																"type": "Expression"
+															},
+															"TableName": {
+																"value": "@item().TableSourceName",
+																"type": "Expression"
+															},
+															"UserAuthName": {
+																"value": "@item().UserSourceName",
+																"type": "Expression"
+															},
+															"SecretAuthPassword": {
+																"value": "@item().SecretAuthKeyName",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "RawParquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": {
+																"value": "@{item().TableSourceName}.parquet",
+																"type": "Expression"
+															},
+															"Container": "raw",
+															"Directory": {
+																"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											},
+											{
+												"name": "Script Columns Chapada AD",
+												"type": "Script",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"linkedServiceName": {
+													"referenceName": "CHA_SQL_SourceSystem_AD",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"SecretServerName": {
+															"value": "@item().SecretServerSourceName",
+															"type": "Expression"
+														},
+														"UserAuthName": {
+															"value": "@item().UserSourceName",
+															"type": "Expression"
+														},
+														"SecretAuthPassword": {
+															"value": "@item().SecretAuthKeyName",
+															"type": "Expression"
+														}
+													}
+												},
+												"typeProperties": {
+													"scripts": [
+														{
+															"type": "Query",
+															"text": {
+																"value": "DECLARE @columns VARCHAR(MAX) \nSELECT @columns = COALESCE(@columns + ', ', '') + ('[' + column_name + ']' + ' AS ' + '[' + REPLACE(REPLACE(REPLACE(LTRIM(RTRIM(REPLACE(column_name, '-', '_'))), '(', '_'), ')', ''), ' ', '_') + ']')\nFROM   INFORMATION_SCHEMA.COLUMNS\nWHERE  column_name LIKE '%'\n      AND TABLE_NAME = @{concat('''', item().TableSourceName, '''')}  \n\tAND TABLE_SCHEMA = @{concat('''', item().SchemaSourceName, '''')};\n\nSELECT (@columns) AS Result\n",
+																"type": "Expression"
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									{
+										"value": "ChapadaOnPremUser",
+										"activities": [
+											{
+												"name": "SQL To Parquet Chapada User",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Script Columns Chapada User",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "SqlServerSource",
+														"sqlReaderQuery": {
+															"value": "SELECT @{activity('Script Columns Chapada User').output.resultSets[0].rows[0].Result} FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat(item().IncrementalColumn, ' > ''', item().WatermarkVal, ''''))}",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_CHA_SQL_SourceSystem_User",
+														"type": "DatasetReference",
+														"parameters": {
+															"SecretServerName": {
+																"value": "@item().SecretServerSourceName",
+																"type": "Expression"
+															},
+															"SchemaName": {
+																"value": "@item().SchemaSourceName",
+																"type": "Expression"
+															},
+															"TableName": {
+																"value": "@item().TableSourceName",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "RawParquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": {
+																"value": "@{item().TableSourceName}.parquet",
+																"type": "Expression"
+															},
+															"Container": "raw",
+															"Directory": {
+																"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											},
+											{
+												"name": "Script Columns Chapada User",
+												"type": "Script",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"linkedServiceName": {
+													"referenceName": "CHA_SQL_SourceSystem_User",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"SecretServerName": {
+															"value": "@item().SecretServerSourceName",
+															"type": "Expression"
+														}
+													}
+												},
+												"typeProperties": {
+													"scripts": [
+														{
+															"type": "Query",
+															"text": {
+																"value": "DECLARE @columns VARCHAR(MAX) \nSELECT @columns = COALESCE(@columns + ', ', '') + ('[' + column_name + ']' + ' AS ' + '[' + REPLACE(REPLACE(REPLACE(LTRIM(RTRIM(REPLACE(column_name, '-', '_'))), '(', '_'), ')', ''), ' ', '_') + ']')\nFROM   INFORMATION_SCHEMA.COLUMNS\nWHERE  column_name LIKE '%'\n      AND TABLE_NAME = @{concat('''', item().TableSourceName, '''')}  \n\tAND TABLE_SCHEMA = @{concat('''', item().SchemaSourceName, '''')};\n\nSELECT (@columns) AS Result\n",
+																"type": "Expression"
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									{
+										"value": "EagleOnPremAD",
+										"activities": [
+											{
+												"name": "SQL To Parquet Eagle AD",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Script Columns Eagle AD",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "SqlServerSource",
+														"sqlReaderQuery": {
+															"value": "SELECT @{activity('Script Columns Eagle AD').output.resultSets[0].rows[0].Result} FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat(item().IncrementalColumn, ' > ''', item().WatermarkVal, ''''))}",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_EAG_SQL_SourceSystem_AD",
+														"type": "DatasetReference",
+														"parameters": {
+															"SecretServerName": {
+																"value": "@item().SecretServerSourceName",
+																"type": "Expression"
+															},
+															"SchemaName": {
+																"value": "@item().SchemaSourceName",
+																"type": "Expression"
+															},
+															"TableName": {
+																"value": "@item().TableSourceName",
+																"type": "Expression"
+															},
+															"UserAuthName": {
+																"value": "@item().UserSourceName",
+																"type": "Expression"
+															},
+															"SecretAuthPassword": {
+																"value": "@item().SecretAuthKeyName",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "RawParquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": {
+																"value": "@{item().TableSourceName}.parquet",
+																"type": "Expression"
+															},
+															"Container": "raw",
+															"Directory": {
+																"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											},
+											{
+												"name": "Script Columns Eagle AD",
+												"type": "Script",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"linkedServiceName": {
+													"referenceName": "EAG_SQL_SourceSystem_AD",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"SecretServerName": {
+															"value": "@item().SecretServerSourceName",
+															"type": "Expression"
+														},
+														"UserAuthName": {
+															"value": "@item().UserSourceName",
+															"type": "Expression"
+														},
+														"SecretAuthPassword": {
+															"value": "@item().SecretAuthKeyName",
+															"type": "Expression"
+														}
+													}
+												},
+												"typeProperties": {
+													"scripts": [
+														{
+															"type": "Query",
+															"text": {
+																"value": "DECLARE @columns VARCHAR(MAX) \nSELECT @columns = COALESCE(@columns + ', ', '') + ('[' + column_name + ']' + ' AS ' + '[' + REPLACE(REPLACE(REPLACE(LTRIM(RTRIM(REPLACE(column_name, '-', '_'))), '(', '_'), ')', ''), ' ', '_') + ']')\nFROM   INFORMATION_SCHEMA.COLUMNS\nWHERE  column_name LIKE '%'\n      AND TABLE_NAME = @{concat('''', item().TableSourceName, '''')}  \n\tAND TABLE_SCHEMA = @{concat('''', item().SchemaSourceName, '''')};\n\nSELECT (@columns) AS Result\n",
+																"type": "Expression"
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									{
+										"value": "EagleOnPremUser",
+										"activities": [
+											{
+												"name": "SQL To Parquet Eagle User",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Script Columns Eagle User",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "SqlServerSource",
+														"sqlReaderQuery": {
+															"value": "SELECT @{activity('Script Columns Eagle User').output.resultSets[0].rows[0].Result} FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat(item().IncrementalColumn, ' > ''', item().WatermarkVal, ''''))}",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_EAG_SQL_SourceSystem_User",
+														"type": "DatasetReference",
+														"parameters": {
+															"SecretServerName": {
+																"value": "@item().SecretServerSourceName",
+																"type": "Expression"
+															},
+															"SchemaName": {
+																"value": "@item().SchemaSourceName",
+																"type": "Expression"
+															},
+															"TableName": {
+																"value": "@item().TableSourceName",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "RawParquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": {
+																"value": "@{item().TableSourceName}.parquet",
+																"type": "Expression"
+															},
+															"Container": "raw",
+															"Directory": {
+																"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											},
+											{
+												"name": "Script Columns Eagle User",
+												"type": "Script",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"linkedServiceName": {
+													"referenceName": "EAG_SQL_SourceSystem_User",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"SecretServerName": {
+															"value": "@item().SecretServerSourceName",
+															"type": "Expression"
+														}
+													}
+												},
+												"typeProperties": {
+													"scripts": [
+														{
+															"type": "Query",
+															"text": {
+																"value": "DECLARE @columns VARCHAR(MAX) \nSELECT @columns = COALESCE(@columns + ', ', '') + ('[' + column_name + ']' + ' AS ' + '[' + REPLACE(REPLACE(REPLACE(LTRIM(RTRIM(REPLACE(column_name, '-', '_'))), '(', '_'), ')', ''), ' ', '_') + ']')\nFROM   INFORMATION_SCHEMA.COLUMNS\nWHERE  column_name LIKE '%'\n      AND TABLE_NAME = @{concat('''', item().TableSourceName, '''')}  \n\tAND TABLE_SCHEMA = @{concat('''', item().SchemaSourceName, '''')};\n\nSELECT (@columns) AS Result\n",
+																"type": "Expression"
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									{
+										"value": "SomincorOnPremAD",
+										"activities": [
+											{
+												"name": "SQL To Parquet Somincor AD",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Script Columns Somincor AD",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "SqlServerSource",
+														"sqlReaderQuery": {
+															"value": "SELECT @{activity('Script Columns Somincor AD').output.resultSets[0].rows[0].Result} FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat(item().IncrementalColumn, ' > ''', item().WatermarkVal, ''''))}",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_SOM_SQL_SourceSystem_AD",
+														"type": "DatasetReference",
+														"parameters": {
+															"SecretServerName": {
+																"value": "@item().SecretServerSourceName",
+																"type": "Expression"
+															},
+															"SchemaName": {
+																"value": "@item().SchemaSourceName",
+																"type": "Expression"
+															},
+															"TableName": {
+																"value": "@item().TableSourceName",
+																"type": "Expression"
+															},
+															"UserAuthName": {
+																"value": "@item().UserSourceName",
+																"type": "Expression"
+															},
+															"SecretAuthPassword": {
+																"value": "@item().SecretAuthKeyName",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "RawParquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": {
+																"value": "@{item().TableSourceName}.parquet",
+																"type": "Expression"
+															},
+															"Container": "raw",
+															"Directory": {
+																"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											},
+											{
+												"name": "Script Columns Somincor AD",
+												"type": "Script",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"linkedServiceName": {
+													"referenceName": "SOM_SQL_SourceSystem_AD",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"SecretServerName": {
+															"value": "@item().SecretServerSourceName",
+															"type": "Expression"
+														},
+														"UserAuthName": {
+															"value": "@item().UserSourceName",
+															"type": "Expression"
+														},
+														"SecretAuthPassword": {
+															"value": "@item().SecretAuthKeyName",
+															"type": "Expression"
+														}
+													}
+												},
+												"typeProperties": {
+													"scripts": [
+														{
+															"type": "Query",
+															"text": {
+																"value": "DECLARE @columns VARCHAR(MAX) \nSELECT @columns = COALESCE(@columns + ', ', '') + ('[' + column_name + ']' + ' AS ' + '[' + TRANSLATE(REPLACE(column_name, ')', ''), 'ÁÉÍÓÚáéíóúÇÃÂâçãº-%(!? ', 'AEIOUaeiouCAAacao______') + ']')\nFROM   INFORMATION_SCHEMA.COLUMNS\nWHERE  column_name LIKE '%'\n      AND TABLE_NAME = @{concat('''', item().TableSourceName, '''')}  \n\tAND TABLE_SCHEMA = @{concat('''', item().SchemaSourceName, '''')};\n\nSELECT (@columns) AS Result\n",
+																"type": "Expression"
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									{
+										"value": "SomincorOnPremUser",
+										"activities": [
+											{
+												"name": "SQL To Parquet Somincor User",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Script Columns Somincor User",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "SqlServerSource",
+														"sqlReaderQuery": {
+															"value": "SELECT @{activity('Script Columns Somincor User').output.resultSets[0].rows[0].Result} FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat(item().IncrementalColumn, ' > ''', item().WatermarkVal, ''''))}",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_SOM_SQL_SourceSystem_User",
+														"type": "DatasetReference",
+														"parameters": {
+															"SecretServerName": {
+																"value": "@item().SecretServerSourceName",
+																"type": "Expression"
+															},
+															"SchemaName": {
+																"value": "@item().SchemaSourceName",
+																"type": "Expression"
+															},
+															"TableName": {
+																"value": "@item().TableSourceName",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "RawParquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": {
+																"value": "@{item().TableSourceName}.parquet",
+																"type": "Expression"
+															},
+															"Container": "raw",
+															"Directory": {
+																"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											},
+											{
+												"name": "Script Columns Somincor User",
+												"type": "Script",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"linkedServiceName": {
+													"referenceName": "SOM_SQL_SourceSystem_User",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"SecretServerName": {
+															"value": "@item().SecretServerSourceName",
+															"type": "Expression"
+														}
+													}
+												},
+												"typeProperties": {
+													"scripts": [
+														{
+															"type": "Query",
+															"text": {
+																"value": "DECLARE @columns VARCHAR(MAX) \nSELECT @columns = COALESCE(@columns + ', ', '') + ('[' + column_name + ']' + ' AS ' + '[' + REPLACE(REPLACE(REPLACE(LTRIM(RTRIM(REPLACE(column_name, '-', '_'))), '(', '_'), ')', ''), ' ', '_') + ']')\nFROM   INFORMATION_SCHEMA.COLUMNS\nWHERE  column_name LIKE '%'\n      AND TABLE_NAME = @{concat('''', item().TableSourceName, '''')}  \n\tAND TABLE_SCHEMA = @{concat('''', item().SchemaSourceName, '''')};\n\nSELECT (@columns) AS Result\n",
+																"type": "Expression"
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									{
+										"value": "ChapadaOracleUser",
+										"activities": [
+											{
+												"name": "SQL To Parquet Chapada Oracle",
+												"type": "Copy",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "OracleSource",
+														"oracleReaderQuery": {
+															"value": "SELECT * FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat('TO_CHAR(', item().IncrementalColumn, ', ''YYYY-MM-DD HH24:MI:SS'') > ''', item().WatermarkVal, ''''))}",
+															"type": "Expression"
+														},
+														"partitionOption": "None",
+														"queryTimeout": "02:00:00"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_CHA_ORACLE_SourceSystem_User",
+														"type": "DatasetReference",
+														"parameters": {
+															"UserAuthName": {
+																"value": "@item().UserSourceName",
+																"type": "Expression"
+															},
+															"SecretAuthPassword": {
+																"value": "@item().SecretAuthKeyName",
+																"type": "Expression"
+															},
+															"SchemaName": {
+																"value": "@item().SchemaSourceName",
+																"type": "Expression"
+															},
+															"TableName": {
+																"value": "@item().TableSourceName",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "RawParquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": {
+																"value": "@{item().TableSourceName}.parquet",
+																"type": "Expression"
+															},
+															"Container": "raw",
+															"Directory": {
+																"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											}
+										]
+									},
+									{
+										"value": "ZinkgruvanOnPremAD",
+										"activities": [
+											{
+												"name": "SQL To Parquet Zinkgruvan AD",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Script Columns Zinkgruvan AD",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "SqlServerSource",
+														"sqlReaderQuery": {
+															"value": "SELECT @{activity('Script Columns Zinkgruvan AD').output.resultSets[0].rows[0].Result} FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat(item().IncrementalColumn, ' > ''', item().WatermarkVal, ''''))}",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_ZIN_SQL_SourceSystem_AD",
+														"type": "DatasetReference",
+														"parameters": {
+															"SecretServerName": {
+																"value": "@item().SecretServerSourceName",
+																"type": "Expression"
+															},
+															"UserAuthName": {
+																"value": "@item().UserSourceName",
+																"type": "Expression"
+															},
+															"SecretAuthPassword": {
+																"value": "@item().SecretAuthKeyName",
+																"type": "Expression"
+															},
+															"SchemaName": {
+																"value": "@item().SchemaSourceName",
+																"type": "Expression"
+															},
+															"TableName": {
+																"value": "@item().TableSourceName",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "RawParquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": {
+																"value": "@{item().TableSourceName}.parquet",
+																"type": "Expression"
+															},
+															"Container": "raw",
+															"Directory": {
+																"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											},
+											{
+												"name": "Script Columns Zinkgruvan AD",
+												"type": "Script",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"linkedServiceName": {
+													"referenceName": "ZIN_SQL_SourceSystem_AD",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"SecretServerName": {
+															"value": "@item().SecretServerSourceName",
+															"type": "Expression"
+														},
+														"UserAuthName": {
+															"value": "@item().UserSourceName",
+															"type": "Expression"
+														},
+														"SecretAuthPassword": {
+															"value": "@item().SecretAuthKeyName",
+															"type": "Expression"
+														}
+													}
+												},
+												"typeProperties": {
+													"scripts": [
+														{
+															"type": "Query",
+															"text": {
+																"value": "DECLARE @columns VARCHAR(MAX) \nSELECT @columns = COALESCE(@columns + ', ', '') + ('[' + column_name + ']' + ' AS ' + '[' + REPLACE(REPLACE(REPLACE(LTRIM(RTRIM(REPLACE(column_name, '-', '_'))), '(', '_'), ')', ''), ' ', '_') + ']')\nFROM   INFORMATION_SCHEMA.COLUMNS\nWHERE  TABLE_NAME = @{concat('''', item().TableSourceName, '''')}  \n\tAND TABLE_SCHEMA = @{concat('''', item().SchemaSourceName, '''')};\n\nSELECT (@columns) AS Result\n",
+																"type": "Expression"
+															}
+														}
+													]
+												}
+											}
+										]
+									},
+									{
+										"value": "ZinkgruvanOnPremUser",
+										"activities": [
+											{
+												"name": "SQL To Parquet Zinkgruvan User",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Script Columns Zinkgruvan User",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "SqlServerSource",
+														"sqlReaderQuery": {
+															"value": "SELECT @{activity('Script Columns Zinkgruvan User').output.resultSets[0].rows[0].Result} FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat(item().IncrementalColumn, ' > ''', item().WatermarkVal, ''''))}",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "ParquetSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "ParquetWriteSettings"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_ZIN_SQL_SourceSystem_User",
+														"type": "DatasetReference",
+														"parameters": {
+															"SecretServerName": {
+																"value": "@item().SecretServerSourceName",
+																"type": "Expression"
+															},
+															"SchemaName": {
+																"value": "@item().SchemaSourceName",
+																"type": "Expression"
+															},
+															"TableName": {
+																"value": "@item().TableSourceName",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "RawParquet",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": {
+																"value": "@{item().TableSourceName}.parquet",
+																"type": "Expression"
+															},
+															"Container": "raw",
+															"Directory": {
+																"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+																"type": "Expression"
+															}
+														}
+													}
+												]
+											},
+											{
+												"name": "Script Columns Zinkgruvan User",
+												"type": "Script",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"linkedServiceName": {
+													"referenceName": "ZIN_SQL_SourceSystem_User",
+													"type": "LinkedServiceReference",
+													"parameters": {
+														"SecretServerName": {
+															"value": "@item().SecretServerSourceName",
+															"type": "Expression"
+														}
+													}
+												},
+												"typeProperties": {
+													"scripts": [
+														{
+															"type": "Query",
+															"text": {
+																"value": "DECLARE @columns VARCHAR(MAX) \nSELECT @columns = COALESCE(@columns + ', ', '') + ('[' + column_name + ']' + ' AS ' + '[' + REPLACE(REPLACE(REPLACE(LTRIM(RTRIM(REPLACE(column_name, '-', '_'))), '(', '_'), ')', ''), ' ', '_') + ']')\nFROM   INFORMATION_SCHEMA.COLUMNS\nWHERE  column_name LIKE '%'\n      AND TABLE_NAME = @{concat('''', item().TableSourceName, '''')}  \n\tAND TABLE_SCHEMA = @{concat('''', item().SchemaSourceName, '''')};\n\nSELECT (@columns) AS Result\n",
+																"type": "Expression"
+															}
+														}
+													]
+												}
+											}
+										]
+									}
+								]
+							}
+						},
+						{
+							"name": "Sites Azure Authentication",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@equals(item().ServerInfrastructure, 'Azure')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "SQL To Parquet Azure",
+										"type": "Copy",
+										"dependsOn": [
+											{
+												"activity": "Script Columns Azure",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "AzureSqlSource",
+												"sqlReaderQuery": {
+													"value": "SELECT @{activity('Script Columns Azure').output.resultSets[0].rows[0].Result} FROM @{item().SchemaSourceName}.@{item().TableSourceName} \nWHERE @{if(equals(item().WaterMarkVal, null), concat(item().SourceFilter), concat(item().IncrementalColumn, ' > ''', item().WatermarkVal, ''''))}",
+													"type": "Expression"
+												},
+												"queryTimeout": "02:00:00",
+												"partitionOption": "None"
+											},
+											"sink": {
+												"type": "ParquetSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "ParquetWriteSettings"
+												}
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "AzureSqlOPSBI",
+												"type": "DatasetReference",
+												"parameters": {
+													"SecretServerName": {
+														"value": "@item().SecretServerSourceName",
+														"type": "Expression"
+													},
+													"SchemaName": {
+														"value": "@item().SchemaSourceName",
+														"type": "Expression"
+													},
+													"TableName": {
+														"value": "@item().TableSourceName",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "RawParquet",
+												"type": "DatasetReference",
+												"parameters": {
+													"Filename": {
+														"value": "@{item().TableSourceName}.parquet",
+														"type": "Expression"
+													},
+													"Container": "raw",
+													"Directory": {
+														"value": "@{item().DestinationFolder}/@{item().TableSourceName}/@{variables('ActualDatetime')}",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									},
+									{
+										"name": "Script Columns Azure",
+										"type": "Script",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"linkedServiceName": {
+											"referenceName": "GLBSQLOPSBI",
+											"type": "LinkedServiceReference",
+											"parameters": {
+												"SecretServerName": {
+													"value": "@item().SecretServerSourceName",
+													"type": "Expression"
+												}
+											}
+										},
+										"typeProperties": {
+											"scripts": [
+												{
+													"type": "Query",
+													"text": {
+														"value": "DECLARE @columns VARCHAR(MAX) \nSELECT @columns = COALESCE(@columns + ', ', '') + ('[' + column_name + ']' + ' AS ' + '[' + REPLACE(REPLACE(REPLACE(LTRIM(RTRIM(REPLACE(column_name, '-', '_'))), '(', '_'), ')', ''), ' ', '_') + ']')\nFROM   INFORMATION_SCHEMA.COLUMNS\nWHERE  column_name LIKE '%'\n      AND TABLE_NAME = @{concat('''', item().TableSourceName, '''')}  \n\tAND TABLE_SCHEMA = @{concat('''', item().SchemaSourceName, '''')};\n\nSELECT (@columns) AS Result\n",
+														"type": "Expression"
+													}
+												}
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Set Datetime",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Read Configuration",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "ActualDatetime",
+					"value": {
+						"value": "@{formatDateTime(utcNow(), 'yyyy/MM/dd/HH_mm_ss')}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Parallel Ingestion",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Configutarion Items",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Repos/DatabricksRepo/Databricks/NEW/Ingestion/Global/ClusterIngestion/Cluster Ingestion",
+					"baseParameters": {
+						"SiteName": {
+							"value": "@variables('Site')",
+							"type": "Expression"
+						},
+						"IngestionGroup": {
+							"value": "@pipeline().parameters.IngestionGroup",
+							"type": "Expression"
+						},
+						"ActualDateTime": {
+							"value": "@variables('ActualDatetime')",
+							"type": "Expression"
+						},
+						"WatermarkSchema": {
+							"value": "@pipeline().parameters.WatermarkSchemaname",
+							"type": "Expression"
+						},
+						"WatermarkTable": {
+							"value": "@pipeline().parameters.WatermarkTablename",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ADBLS_Cluster_ID",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"Cluster_Id": {
+							"value": "@pipeline().parameters.Cluster_Id",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set Site",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Read Configuration",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Site",
+					"value": {
+						"value": "@first(activity('Read Configuration').output.value).Site",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"IngestionGroup": {
+				"type": "string",
+				"defaultValue": "3002"
+			},
+			"WatermarkSchemaname": {
+				"type": "string",
+				"defaultValue": "KPI"
+			},
+			"WatermarkTablename": {
+				"type": "string",
+				"defaultValue": "DataPipeline"
+			},
+			"Cluster_Id": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"ActualDatetime": {
+				"type": "String"
+			},
+			"Site": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Global/Ingestion"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-11-30T01:42:46Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
