@@ -541,7 +541,7 @@ Index(Topic.ResponseImage.data, 1).b64_json`
                     image: "assets/files/projects/03-sql-powerbi-analytics/project303/granulometricos.png",
                     alt: "R code implementation for an interactive granulometric Power BI visual",
                     description: "The visual compares cumulative passing percentages for multiple blast sources across standardized sieve sizes. Each colored line represents a source, while the black dashed line shows the target granulometric profile. Hovering over a point exposes the average passing percentage. The implementation normalizes sieve labels into micron values, calculates average passing percentages by blast and sieve, builds the target curve, and renders the interactive chart with ggplotly.",
-                    codeFile: "assets/files/projects/03-sql-powerbi-analytics/Project303/code.r",
+                    codeFile: "assets/files/projects/03-sql-powerbi-analytics/project303/code.r",
                     codeTitle: "code.r granulometric visual implementation",
                     codeLanguage: "r"
                 }
