@@ -106,3 +106,5 @@ Al hacer `git push` a la rama `main`:
 > **Nota:** Los cambios pueden tardar unos minutos en aparecer. Si el despliegue falla,
 > revisa la pestaña **Actions** del repositorio y confirma que `_site/` no se está
 > subiendo: GitHub Pages debe generar esa carpeta durante el despliegue.
+
+Help: "git config core.ignorecase false"
